@@ -1,0 +1,10 @@
+{
+	"name": "VanillaFlavour",
+	"description": "Vanilla cards with slight balance adjustments",
+	"version_number": "#VERSION#",
+	"dependencies": [
+		"BepInEx-BepInExPack_ROUNDS-5.4.1100",
+		"willis81808-UnboundLib-3.2.10"
+	],
+	"website_url": "https://github.com/olavim/FlavourCards"
+}
