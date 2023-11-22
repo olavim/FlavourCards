@@ -16,7 +16,7 @@ namespace VanillaFlavour
 
 		protected override GameObject GetCardArt()
 		{
-			return (GameObject) VanillaFlavour.RoundsResources["C_QuickReload"];
+			return (GameObject) VanillaFlavour.CustomResources["C_RapidFire"];
 		}
 
 		protected override string GetDescription()

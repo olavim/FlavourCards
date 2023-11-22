@@ -17,9 +17,19 @@ namespace VanillaFlavour
 		public const string ModVersion = ThisAssembly.Project.Version;
 
 		internal static Dictionary<string, object> RoundsResources { get; } = new();
+		internal static Dictionary<string, object> CustomResources { get; } = new();
 
 		private void Start()
 		{
+			var asm = Assembly.GetExecutingAssembly();
+			using var stream = asm.GetManifestResourceStream("VanillaFlavour.Assets.art");
+			var artBundle = AssetBundle.LoadFromStream(stream);
+
+			foreach (var res in artBundle.LoadAllAssets<GameObject>())
+			{
+				CustomResources.Add(res.name, res);
+			}
+
 			foreach (var res in Resources.FindObjectsOfTypeAll<GameObject>())
 			{
 				if (res.name.StartsWith("A_") || res.name.StartsWith("C_") || res.name.StartsWith("E_"))
