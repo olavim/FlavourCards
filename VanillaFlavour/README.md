@@ -6,7 +6,8 @@ A pack of slightly modified vanilla cards. You are supposed to disable the vanil
 
 ### Rapid fire
 
-- `+50% ATKSPD`
+- Rarity: Uncommon
+- `+100% ATKSPD`
 
 ## Changes
 

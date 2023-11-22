@@ -26,13 +26,13 @@ namespace VanillaFlavour
 
 		protected override CardInfo.Rarity GetRarity()
 		{
-			return CardInfo.Rarity.Common;
+			return CardInfo.Rarity.Uncommon;
 		}
 
 		protected override CardInfoStat[] GetStats()
 		{
 			return new CardInfoStat[] {
-				Utils.CreateCardInfoStat("+50%", "ATKSPD", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.lower)
+				Utils.CreateCardInfoStat("+100%", "ATKSPD", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.aLotOf)
 			};
 		}
 

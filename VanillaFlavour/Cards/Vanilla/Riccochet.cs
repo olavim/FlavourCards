@@ -7,7 +7,7 @@ namespace VanillaFlavour
 	{
 		public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
 		{
-			gun.attackSpeed = 0.75f;
+			gun.attackSpeed = 0.8f;
 			gun.overheatMultiplier = 0.15f;
 			gun.reflects = 2;
 			gun.speedMOnBounce = 0.5f;
@@ -21,6 +21,7 @@ namespace VanillaFlavour
 			gun.attackID = 0;
 
 			/* Original:
+			 * gun.attackSpeed = 0.75f;
 			 * gun.reloadTimeAdd = 0.25f;
 			 */
 		}
