@@ -34,8 +34,7 @@ namespace VanillaFlavour
 		protected override CardInfoStat[] GetStats()
 		{
 			return new CardInfoStat[] {
-				Utils.CreateCardInfoStat("+30%", "HP", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.Some),
-				Utils.CreateCardInfoStat("+0.25s", "Block cooldown", CardInfoStatType.Negative, CardInfoStat.SimpleAmount.notAssigned)
+				Utils.CreateCardInfoStat("+30%", "HP", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.Some)
 			};
 		}
 

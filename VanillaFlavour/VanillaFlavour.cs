@@ -38,14 +38,6 @@ namespace VanillaFlavour
 				RoundsResources.TryAdd(res.name, res);
 			}
 
-			foreach (var res in Resources.FindObjectsOfTypeAll<Sprite>())
-			{
-				if (res.name.StartsWith("Icons_"))
-				{
-					RoundsResources.TryAdd(res.name, res);
-				}
-			}
-
 			foreach (var type in Assembly.GetExecutingAssembly().GetTypes().Where(type => type.GetCustomAttribute<CardAttribute>() != null))
 			{
 				AccessTools.Method(typeof(CustomCard), nameof(CustomCard.BuildCard)).MakeGenericMethod(type).Invoke(null, null);
