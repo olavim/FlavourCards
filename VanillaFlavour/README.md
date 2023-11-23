@@ -25,10 +25,6 @@ A pack of slightly modified vanilla cards. You are supposed to disable the vanil
 
 - Now gives `+50% HP` instead of `+30% HP`.
 
-### Homing
-
-- Now gives `-40% DMG` instead of `-25% DMG`.
-
 ### Poison bullets
 
 - Rarity changed from `Common` to `Uncommon`.
@@ -41,3 +37,7 @@ A pack of slightly modified vanilla cards. You are supposed to disable the vanil
 ### Target bounce
 
 - Now gives `-50% DMG` instead of `-20% DMG`.
+
+### Teleport
+
+- Rarity changed from `Rare` to `Uncommon`.

@@ -7,7 +7,7 @@ namespace VanillaFlavour
 	{
 		public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
 		{
-			gun.damage = 0.6f;
+			gun.damage = 0.75f;
 			gun.attackSpeed = 1.5f;
 			gun.projectileSpeed = 0.7f;
 			gun.reloadTimeAdd = 0.25f;
@@ -19,10 +19,6 @@ namespace VanillaFlavour
 					AddToProjectile = (GameObject) VanillaFlavour.RoundsResources["A_Homing"]
 				}
 			};
-
-			/* Original:
-			 * gun.damage = 0.75f;
-			 */
 		}
 
 		public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
@@ -47,7 +43,7 @@ namespace VanillaFlavour
 		protected override CardInfoStat[] GetStats()
 		{
 			return new CardInfoStat[] {
-				Utils.CreateCardInfoStat("-50%", "DMG", CardInfoStatType.Negative, CardInfoStat.SimpleAmount.lower),
+				Utils.CreateCardInfoStat("-25%", "DMG", CardInfoStatType.Negative, CardInfoStat.SimpleAmount.lower),
 				Utils.CreateCardInfoStat("-50%", "ATKSPD", CardInfoStatType.Negative, CardInfoStat.SimpleAmount.lower),
 				Utils.CreateCardInfoStat("+0.25s", "Reload time", CardInfoStatType.Negative, CardInfoStat.SimpleAmount.notAssigned)
 			};
