@@ -9,6 +9,7 @@
 
 	<ItemGroup>
 		<EmbeddedResource Include=".\Assets\art" />
+		<EmbeddedResource Include=".\Assets\attachments" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -36,7 +36,9 @@ A pack of slightly modified vanilla cards. You are supposed to disable the vanil
 
 ### Target bounce
 
-- Now gives `-50% DMG` instead of `-20% DMG`.
+- Now only targets nearby visible players. Targeting range is the same as Radar Shot's visual indicator.
+- Now gives `-25% DMG` instead of `-20% DMG`.
+- Description changed to `Bullets aim for nearby visible targets when bouncing`.
 
 ### Teleport
 

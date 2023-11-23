@@ -19,13 +19,24 @@ namespace VanillaFlavour
 		internal static Dictionary<string, object> RoundsResources { get; } = new();
 		internal static Dictionary<string, object> CustomResources { get; } = new();
 
-		private void Start()
+		private static AssetBundle LoadAssetBundle(string name)
 		{
 			var asm = Assembly.GetExecutingAssembly();
-			using var stream = asm.GetManifestResourceStream("VanillaFlavour.Assets.art");
-			var artBundle = AssetBundle.LoadFromStream(stream);
+			using var stream = asm.GetManifestResourceStream($"VanillaFlavour.Assets.{name}");
+			return AssetBundle.LoadFromStream(stream);
+		}
+
+		private void Start()
+		{
+			var artBundle = LoadAssetBundle("art");
+			var attachmentsBundle = LoadAssetBundle("attachments");
 
 			foreach (var res in artBundle.LoadAllAssets<GameObject>())
+			{
+				CustomResources.Add(res.name, res);
+			}
+
+			foreach (var res in attachmentsBundle.LoadAllAssets<GameObject>())
 			{
 				CustomResources.Add(res.name, res);
 			}

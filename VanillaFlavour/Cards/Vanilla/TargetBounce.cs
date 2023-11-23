@@ -7,14 +7,14 @@ namespace VanillaFlavour
 	{
 		public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
 		{
-			gun.damage = 0.5f;
+			gun.damage = 0.75f;
 			gun.overheatMultiplier = 0.1f;
 			gun.reflects = 1;
 			gun.objectsToSpawn = new ObjectsToSpawn[]
 			{
 				new()
 				{
-					AddToProjectile = (GameObject) VanillaFlavour.RoundsResources["A_TargetBounce"]
+					AddToProjectile = (GameObject) VanillaFlavour.CustomResources["A_TargetBounce"]
 				},
 				new()
 				{
@@ -39,7 +39,7 @@ namespace VanillaFlavour
 
 		protected override string GetDescription()
 		{
-			return "Bullets aim for visible targets when bouncing";
+			return "Bullets aim for nearby visible targets when bouncing";
 		}
 
 		protected override CardInfo.Rarity GetRarity()
@@ -51,7 +51,7 @@ namespace VanillaFlavour
 		{
 			return new CardInfoStat[] {
 				Utils.CreateCardInfoStat("+1", "Bullet bounce", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.notAssigned),
-				Utils.CreateCardInfoStat("-50%", "DMG", CardInfoStatType.Negative, CardInfoStat.SimpleAmount.lower),
+				Utils.CreateCardInfoStat("-25%", "DMG", CardInfoStatType.Negative, CardInfoStat.SimpleAmount.lower),
 				Utils.CreateCardInfoStat("+0.25s", "Reload time", CardInfoStatType.Negative, CardInfoStat.SimpleAmount.notAssigned)
 			};
 		}
