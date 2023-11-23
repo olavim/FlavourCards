@@ -7,10 +7,10 @@ namespace VanillaFlavour
 	{
 		public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
 		{
-			gun.damage = 0.5f;
-			gun.reloadTimeAdd = 0.5f;
+			gun.damage = 0.6f;
 			gun.attackSpeed = 1.5f;
 			gun.projectileSpeed = 0.7f;
+			gun.reloadTimeAdd = 0.25f;
 			gun.gravity = 0.5f;
 			gun.objectsToSpawn = new ObjectsToSpawn[]
 			{
@@ -21,7 +21,6 @@ namespace VanillaFlavour
 			};
 
 			/* Original:
-			 * gun.reloadTimeAdd = 0f;
 			 * gun.damage = 0.75f;
 			 */
 		}
@@ -50,7 +49,7 @@ namespace VanillaFlavour
 			return new CardInfoStat[] {
 				Utils.CreateCardInfoStat("-50%", "DMG", CardInfoStatType.Negative, CardInfoStat.SimpleAmount.lower),
 				Utils.CreateCardInfoStat("-50%", "ATKSPD", CardInfoStatType.Negative, CardInfoStat.SimpleAmount.lower),
-				Utils.CreateCardInfoStat("+0.5s", "Reload time", CardInfoStatType.Negative, CardInfoStat.SimpleAmount.notAssigned)
+				Utils.CreateCardInfoStat("+0.25s", "Reload time", CardInfoStatType.Negative, CardInfoStat.SimpleAmount.notAssigned)
 			};
 		}
 

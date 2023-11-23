@@ -10,9 +10,10 @@ namespace VanillaFlavour
 			statModifiers.AddObjectToPlayer = (GameObject) VanillaFlavour.RoundsResources["A_Healing Field"];
 			statModifiers.health = 1.5f;
 
+			block.cdAdd = 0.25f;
+
 			/* Original:
 			 * statModifiers.health = 1.3f;
-			 * block.cdAdd = 0.25f;
 			 */
 		}
 
@@ -38,7 +39,8 @@ namespace VanillaFlavour
 		protected override CardInfoStat[] GetStats()
 		{
 			return new CardInfoStat[] {
-				Utils.CreateCardInfoStat("+50%", "HP", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.Some)
+				Utils.CreateCardInfoStat("+50%", "HP", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.Some),
+				Utils.CreateCardInfoStat("+0.25s", "Block cooldown", CardInfoStatType.Negative, CardInfoStat.SimpleAmount.notAssigned)
 			};
 		}
 

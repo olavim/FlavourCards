@@ -11,9 +11,7 @@ namespace VanillaFlavour
 
 			statModifiers.AddObjectToPlayer = (GameObject) VanillaFlavour.RoundsResources["A_Empower"];
 
-			/* Original:
-			 * block.cdAdd = 0.25f;
-			 */
+			block.cdAdd = 0.25f;
 		}
 
 		public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
@@ -37,7 +35,9 @@ namespace VanillaFlavour
 
 		protected override CardInfoStat[] GetStats()
 		{
-			return new CardInfoStat[0];
+			return new CardInfoStat[] {
+				Utils.CreateCardInfoStat("+0.25s", "Block cooldown", CardInfoStatType.Negative, CardInfoStat.SimpleAmount.notAssigned)
+			};
 		}
 
 		protected override CardThemeColor.CardThemeColorType GetTheme()

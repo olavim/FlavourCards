@@ -10,6 +10,7 @@ namespace VanillaFlavour
 			gun.damage = 1.25f;
 			gun.overheatMultiplier = 0.2f;
 			gun.reflects = 2;
+			gun.reloadTimeAdd = 0.25f;
 			gun.objectsToSpawn = new ObjectsToSpawn[]
 			{
 				new()
@@ -18,10 +19,6 @@ namespace VanillaFlavour
 				}
 			};
 			gun.attackID = 0;
-
-			/* Original:
-			 * gun.reloadTimeAdd = 0.25f;
-			 */
 		}
 
 		public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
@@ -47,7 +44,8 @@ namespace VanillaFlavour
 		{
 			return new CardInfoStat[] {
 				Utils.CreateCardInfoStat("+2", "Bullet bounces", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.notAssigned),
-				Utils.CreateCardInfoStat("+25%", "DMG", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.Some)
+				Utils.CreateCardInfoStat("+25%", "DMG", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.Some),
+				Utils.CreateCardInfoStat("+0.25s", "Reload time", CardInfoStatType.Negative, CardInfoStat.SimpleAmount.notAssigned)
 			};
 		}
 

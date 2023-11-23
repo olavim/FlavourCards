@@ -11,9 +11,6 @@ A pack of slightly modified vanilla cards. You are supposed to disable the vanil
 
 ## Changes
 
-- All instances of `+0.25s Reload time` have been removed.
-- All instances of `+0.25s Block cooldown` have been removed.
-
 ### Decay
 
 - Rarity changed from `Uncommon` to `Rare`.
@@ -21,7 +18,8 @@ A pack of slightly modified vanilla cards. You are supposed to disable the vanil
 ### Defender
 
 - Rarity changed from `Uncommon` to `Common`.
-- Removed `+30% HP`.
+- Now gives `+25% HP` instead of `+30% HP`.
+- Now gives `-25% Block cooldown` instead of `-30% Block cooldown`.
 
 ### Healing field
 
@@ -29,9 +27,7 @@ A pack of slightly modified vanilla cards. You are supposed to disable the vanil
 
 ### Homing
 
-- Added `+0.5s Reload time`.
-- Added `-50% ATKSPD`.
-- Now gives `-50% DMG` instead of `-25% DMG`.
+- Now gives `-40% DMG` instead of `-25% DMG`.
 
 ### Poison bullets
 

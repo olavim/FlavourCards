@@ -7,9 +7,11 @@ namespace VanillaFlavour
 	{
 		public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
 		{
-			block.cdMultiplier = 0.7f;
+			block.cdMultiplier = 0.75f;
+			statModifiers.health = 1.25f;
 
 			/* Original:
+			 * block.cdMultiplier = 0.7f;
 			 * statModifiers.health = 1.3f;
 			 */
 		}
@@ -37,7 +39,8 @@ namespace VanillaFlavour
 		protected override CardInfoStat[] GetStats()
 		{
 			return new CardInfoStat[] {
-				Utils.CreateCardInfoStat("-30%", "Block cooldown", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.slightlyLower)
+				Utils.CreateCardInfoStat("+25%", "HP", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.aLittleBitOf),
+				Utils.CreateCardInfoStat("-25%", "Block cooldown", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.slightlyLower)
 			};
 		}
 

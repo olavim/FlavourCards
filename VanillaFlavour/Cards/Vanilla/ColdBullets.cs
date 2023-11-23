@@ -21,10 +21,7 @@ namespace VanillaFlavour
 				}
 			};
 			gun.projectileColor = new Color(0.2122642f, 0.9246516f, 1f, 1f);
-
-			/* Original:
-			 * gun.reloadTimeAdd = 0.25f;
-			 */
+			gun.reloadTimeAdd = 0.25f;
 		}
 
 		public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
@@ -49,7 +46,8 @@ namespace VanillaFlavour
 		protected override CardInfoStat[] GetStats()
 		{
 			return new CardInfoStat[] {
-				Utils.CreateCardInfoStat("+70%", "Bullet slow", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.aLotOf)
+				Utils.CreateCardInfoStat("+70%", "Bullet slow", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.aLotOf),
+				Utils.CreateCardInfoStat("+0.25s", "Reload time", CardInfoStatType.Negative, CardInfoStat.SimpleAmount.notAssigned)
 			};
 		}
 

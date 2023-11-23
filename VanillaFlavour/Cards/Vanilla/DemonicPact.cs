@@ -27,10 +27,7 @@ namespace VanillaFlavour
 			gun.projectileColor = new Color(0.6471141f, 0.4575472f, 1f, 1f);
 
 			statModifiers.AddObjectToPlayer = (GameObject) VanillaFlavour.RoundsResources["A_DemonicPact"];
-
-			/* Original:
-			 * gun.reloadTimeAdd = 0.25f;
-			 */
+			gun.reloadTimeAdd = 0.25f;
 		}
 
 		public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
@@ -56,7 +53,8 @@ namespace VanillaFlavour
 		{
 			return new CardInfoStat[] {
 				Utils.CreateCardInfoStat("+9", "Bullets", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.notAssigned),
-				Utils.CreateCardInfoStat("+2", "Splash DMG", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.aLittleBitOf)
+				Utils.CreateCardInfoStat("+2", "Splash DMG", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.aLittleBitOf),
+				Utils.CreateCardInfoStat("+0.25s", "Reload time", CardInfoStatType.Negative, CardInfoStat.SimpleAmount.notAssigned)
 			};
 		}
 

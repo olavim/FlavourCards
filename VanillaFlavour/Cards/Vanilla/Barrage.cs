@@ -11,10 +11,7 @@ namespace VanillaFlavour
 			gun.ammo = 5;
 			gun.numberOfProjectiles = 4;
 			gun.spread = 0.13f;
-
-			/* Original:
-			 * gun.reloadTimeAdd = 0.25f;
-			 */
+			gun.reloadTimeAdd = 0.25f;
 		}
 
 		public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
@@ -41,7 +38,8 @@ namespace VanillaFlavour
 			return new CardInfoStat[] {
 				Utils.CreateCardInfoStat("+4", "Bullets", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.notAssigned),
 				Utils.CreateCardInfoStat("+5", "Ammo", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.notAssigned),
-				Utils.CreateCardInfoStat("-70%", "DMG", CardInfoStatType.Negative, CardInfoStat.SimpleAmount.aLotLower)
+				Utils.CreateCardInfoStat("-70%", "DMG", CardInfoStatType.Negative, CardInfoStat.SimpleAmount.aLotLower),
+				Utils.CreateCardInfoStat("+0.25s", "Reload time", CardInfoStatType.Negative, CardInfoStat.SimpleAmount.notAssigned)
 			};
 		}
 

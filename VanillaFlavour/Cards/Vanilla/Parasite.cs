@@ -10,6 +10,7 @@ namespace VanillaFlavour
 			gun.soundShotModifier = (SoundImplementation.SoundShotModifier) VanillaFlavour.RoundsResources["Parasite_SoundShotModifier"];
 			gun.soundImpactModifier = (SoundImplementation.SoundImpactModifier) VanillaFlavour.RoundsResources["Parasite_SoundImpactModifier"];
 			gun.damage = 1.25f;
+			gun.reloadTimeAdd = 0.25f;
 			gun.objectsToSpawn = new ObjectsToSpawn[]
 			{
 				new()
@@ -23,10 +24,6 @@ namespace VanillaFlavour
 
 			statModifiers.health = 1.25f;
 			statModifiers.lifeSteal = 0.5f;
-
-			/* Original:
-			 * gun.reloadTimeAdd = 0.25f;
-			 */
 		}
 
 		public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
@@ -53,7 +50,8 @@ namespace VanillaFlavour
 			return new CardInfoStat[] {
 				Utils.CreateCardInfoStat("+50%", "Life steal", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.Some),
 				Utils.CreateCardInfoStat("+25%", "HP", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.Some),
-				Utils.CreateCardInfoStat("+25%", "DMG", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.Some)
+				Utils.CreateCardInfoStat("+25%", "DMG", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.Some),
+				Utils.CreateCardInfoStat("+0.25s", "Reload time", CardInfoStatType.Negative, CardInfoStat.SimpleAmount.notAssigned)
 			};
 		}
 

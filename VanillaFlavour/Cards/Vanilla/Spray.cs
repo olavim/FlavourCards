@@ -12,10 +12,7 @@ namespace VanillaFlavour
 			gun.attackSpeed = 0.09090909f;
 			gun.ammo = 12;
 			gun.spread = 0.1f;
-
-			/* Original:
-			 * gun.reloadTimeAdd = 0.25f;
-			 */
+			gun.reloadTimeAdd = 0.25f;
 		}
 
 		public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
@@ -42,7 +39,8 @@ namespace VanillaFlavour
 			return new CardInfoStat[] {
 				Utils.CreateCardInfoStat("+1000%", "ATKSPD", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.aHugeAmountOf),
 				Utils.CreateCardInfoStat("+12", "AMMO", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.notAssigned),
-				Utils.CreateCardInfoStat("-75%", "DMG", CardInfoStatType.Negative, CardInfoStat.SimpleAmount.aLotLower)
+				Utils.CreateCardInfoStat("-75%", "DMG", CardInfoStatType.Negative, CardInfoStat.SimpleAmount.aLotLower),
+				Utils.CreateCardInfoStat("+0.25s", "Reload time", CardInfoStatType.Negative, CardInfoStat.SimpleAmount.notAssigned)
 			};
 		}
 

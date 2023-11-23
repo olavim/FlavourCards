@@ -15,10 +15,7 @@ namespace VanillaFlavour
 					AddToProjectile = (GameObject) VanillaFlavour.RoundsResources["A_Remote"]
 				}
 			};
-
-			/* Original:
-			 * gun.reloadTimeAdd = 0.25f;
-			 */
+			gun.reloadTimeAdd = 0.25f;
 		}
 
 		public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
@@ -43,7 +40,8 @@ namespace VanillaFlavour
 		protected override CardInfoStat[] GetStats()
 		{
 			return new CardInfoStat[] {
-				Utils.CreateCardInfoStat("-40%", "Bullet speed", CardInfoStatType.Negative, CardInfoStat.SimpleAmount.lower)
+				Utils.CreateCardInfoStat("-40%", "Bullet speed", CardInfoStatType.Negative, CardInfoStat.SimpleAmount.lower),
+				Utils.CreateCardInfoStat("+0.25s", "Reload time", CardInfoStatType.Negative, CardInfoStat.SimpleAmount.notAssigned)
 			};
 		}
 

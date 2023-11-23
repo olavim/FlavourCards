@@ -22,10 +22,7 @@ namespace VanillaFlavour
 					scaleFromDamage = 0.7f
 				}
 			};
-
-			/* Original:
-			 * gun.reloadTimeAdd = 0.25f;
-			 */
+			gun.reloadTimeAdd = 0.25f;
 		}
 
 		public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
@@ -49,7 +46,9 @@ namespace VanillaFlavour
 
 		protected override CardInfoStat[] GetStats()
 		{
-			return new CardInfoStat[0];
+			return new CardInfoStat[] {
+				Utils.CreateCardInfoStat("+0.25s", "Reload time", CardInfoStatType.Negative, CardInfoStat.SimpleAmount.notAssigned)
+			};
 		}
 
 		protected override CardThemeColor.CardThemeColorType GetTheme()

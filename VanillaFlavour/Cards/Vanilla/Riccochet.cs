@@ -18,11 +18,10 @@ namespace VanillaFlavour
 					AddToProjectile = (GameObject) VanillaFlavour.RoundsResources["A_ScreenEdge"]
 				}
 			};
-			gun.attackID = 0;
+			gun.reloadTimeAdd = 0.25f;
 
 			/* Original:
 			 * gun.attackSpeed = 0.75f;
-			 * gun.reloadTimeAdd = 0.25f;
 			 */
 		}
 
@@ -49,7 +48,8 @@ namespace VanillaFlavour
 		{
 			return new CardInfoStat[] {
 				Utils.CreateCardInfoStat("+2", "Bullet bounces", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.notAssigned),
-				Utils.CreateCardInfoStat("+25%", "ATKSPD", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.aLittleBitOf)
+				Utils.CreateCardInfoStat("+25%", "ATKSPD", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.aLittleBitOf),
+				Utils.CreateCardInfoStat("+0.25s", "Reload time", CardInfoStatType.Negative, CardInfoStat.SimpleAmount.notAssigned)
 			};
 		}
 
