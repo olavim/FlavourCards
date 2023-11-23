@@ -7,8 +7,8 @@ namespace VanillaFlavour
 	{
 		public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
 		{
-			statModifiers.AddObjectToPlayer = (GameObject) VanillaFlavour.RoundsResources["A_Implode"];
-			statModifiers.health = 1.5f;
+			statModifiers.AddObjectToPlayer = (GameObject) VanillaFlavour.CustomResources["A_Implode"];
+			statModifiers.health = 1.3f;
 
 			block.cdAdd = 0.25f;
 		}
@@ -24,7 +24,7 @@ namespace VanillaFlavour
 
 		protected override string GetDescription()
 		{
-			return "Blocking pulls enemies towards you";
+			return "Deal 10% of your max HP and pull enemies towards you when you block";
 		}
 
 		protected override CardInfo.Rarity GetRarity()
@@ -35,7 +35,7 @@ namespace VanillaFlavour
 		protected override CardInfoStat[] GetStats()
 		{
 			return new CardInfoStat[] {
-				Utils.CreateCardInfoStat("+50%", "HP", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.Some),
+				Utils.CreateCardInfoStat("+30%", "HP", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.Some),
 				Utils.CreateCardInfoStat("+0.25s", "Block cooldown", CardInfoStatType.Negative, CardInfoStat.SimpleAmount.notAssigned)
 			};
 		}

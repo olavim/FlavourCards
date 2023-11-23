@@ -25,6 +25,12 @@ A pack of slightly modified vanilla cards. You are supposed to disable the vanil
 
 - Now gives `+50% HP` instead of `+30% HP`.
 
+### Implode
+
+- Now also deals 10% of your max HP to enemies.
+- Now gives `+30% HP` instead of `+50% HP`.
+- Description changed to `Deal 10% of your max HP and pull enemies towards you when you block`.
+
 ### Poison bullets
 
 - Rarity changed from `Common` to `Uncommon`.
