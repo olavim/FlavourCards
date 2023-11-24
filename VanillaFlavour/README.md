@@ -1,6 +1,6 @@
 # Vanilla Flavour cards
 
-A pack of slightly modified vanilla cards. You are supposed to disable the vanilla cards and use these instead.
+A pack of vanilla cards with competitive balance changes. You are supposed to disable the original vanilla cards and use these instead.
 
 ## New Cards
 

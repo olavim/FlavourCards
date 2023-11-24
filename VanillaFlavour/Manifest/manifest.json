@@ -1,6 +1,6 @@
 {
 	"name": "VanillaFlavour",
-	"description": "A pack of vanilla cards with slight balance adjustments. You should disable vanilla cards when using this.",
+	"description": "A pack of vanilla cards with competitive balance changes. You are supposed to disable the original vanilla cards and use these instead.",
 	"version_number": "#VERSION#",
 	"dependencies": [
 		"BepInEx-BepInExPack_ROUNDS-5.4.1100",
