@@ -354,5 +354,6 @@ nuget.config
 Config.props
 logs/
 .bepinex/
+.unity/
 notes
 ExamplePlugin/

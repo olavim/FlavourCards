@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="..\RoundsReferences.props" />
+
+	<PropertyGroup>
+		<Version>0.1.0</Version>
+		<TargetFramework>net472</TargetFramework>
+		<AssemblyName>CinnamonFlavour</AssemblyName>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Include=".\Assets\art" />
+		<EmbeddedResource Include=".\Assets\attachments" />
+		<EmbeddedResource Include=".\Assets\sfx" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="UnboundLib" Version="3.2.10" IncludeAssets="compile" />
+		<PackageReference Include="ThisAssembly.Project" Version="1.0.0" />
+		<ProjectProperty Include="Version" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="0Harmony">
+			<HintPath>$(BepInExDir)\core\0Harmony.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="BepInEx">
+			<HintPath>$(BepInExDir)\core\BepInEx.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+	</ItemGroup>
+</Project>

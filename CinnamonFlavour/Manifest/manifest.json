@@ -1,0 +1,10 @@
+{
+	"name": "CinnamonFlavour",
+	"description": "A themed pack focused on branding opponents. You get increasingly more powerful by mixing and matching combo pieces. Balanced around vanilla card.",
+	"version_number": "#VERSION#",
+	"dependencies": [
+		"BepInEx-BepInExPack_ROUNDS-5.4.1100",
+		"willis81808-UnboundLib-3.2.10"
+	],
+	"website_url": "https://github.com/olavim/FlavourCards/tree/master/CinnamonFlavour"
+}
