@@ -7,14 +7,15 @@ namespace VanillaFlavour
 	{
 		public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
 		{
-			statModifiers.AddObjectToPlayer = (GameObject) VanillaFlavour.RoundsResources["A_BombsAway"];
 			statModifiers.health = 1.3f;
-
 			block.cdAdd = 0.25f;
 		}
 
 		public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
 		{
+			var go = new GameObject("A_CustomBombsAway", typeof(CustomBombsAway));
+			go.transform.SetParent(player.transform);
+			go.transform.localPosition = Vector3.zero;
 		}
 
 		protected override GameObject GetCardArt()

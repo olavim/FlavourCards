@@ -26,10 +26,10 @@ namespace CinnamonFlavour
 			return AssetBundle.LoadFromStream(stream);
 		}
 		
-        private void Awake()
-        {
-            new Harmony(ModId).PatchAll();
-        }
+		private void Awake()
+		{
+			new Harmony(ModId).PatchAll();
+		}
 
 		private void Start()
 		{

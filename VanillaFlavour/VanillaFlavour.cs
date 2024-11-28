@@ -25,6 +25,11 @@ namespace VanillaFlavour
 			using var stream = asm.GetManifestResourceStream($"VanillaFlavour.Assets.{name}");
 			return AssetBundle.LoadFromStream(stream);
 		}
+		
+		private void Awake()
+		{
+			new Harmony(ModId).PatchAll();
+		}
 
 		private void Start()
 		{

@@ -11,6 +11,10 @@ A pack of vanilla cards with competitive balance changes. You are supposed to di
 
 ## Changes
 
+### Bombs Away
+
+- No longer damages the user.
+
 ### Decay
 
 - Rarity changed from `Uncommon` to `Rare`.
