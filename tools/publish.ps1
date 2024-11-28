@@ -32,7 +32,7 @@ $releaseDir = "$SolutionPath\release"
 
 # Release packages for ThunderStore
 $baseDir = "$releaseDir\thunderstore"
-$tempDir = "$baseDir\temp"
+$tempDir = "$baseDir\$name-temp"
 
 Write-Host "Packaging $name-$Version for ThunderStore"
 
@@ -57,7 +57,7 @@ Remove-Item -Path $tempDir -Recurse
 
 # Release package for GitHub
 $baseDir = "$releaseDir\plugin"
-$tempDir = "$baseDir\temp"
+$tempDir = "$baseDir\$name-temp"
 
 Write-Host "Packaging $name-$Version for GitHub"
 

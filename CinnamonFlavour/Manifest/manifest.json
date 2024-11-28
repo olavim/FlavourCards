@@ -1,6 +1,6 @@
 {
 	"name": "CinnamonFlavour",
-	"description": "A themed pack focused on branding opponents. You get increasingly more powerful by mixing and matching combo pieces. Balanced around vanilla card.",
+	"description": "A themed pack focused on branding opponents. You get increasingly more powerful by mixing and matching combo pieces. Balanced around vanilla cards.",
 	"version_number": "#VERSION#",
 	"dependencies": [
 		"BepInEx-BepInExPack_ROUNDS-5.4.1100",
