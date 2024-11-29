@@ -1,5 +1,6 @@
 using Sonigon;
 using SoundImplementation;
+using UnboundLib;
 using UnityEngine;
 
 namespace CinnamonFlavour
@@ -7,6 +8,7 @@ namespace CinnamonFlavour
 	public class LoadedQuestionAttachment : MonoBehaviour
 	{
 		private CharacterData _data;
+		private GunAmmo _ammo;
 		private int _activeDuration;
 		private bool _isParticleSystemActive;
 		private GameObject _effectPrefab;
@@ -25,6 +27,8 @@ namespace CinnamonFlavour
 			this._particleTransform = this.transform.GetChild(0);
 			this._particleSystems = this.GetComponentsInChildren<ParticleSystem>();
 			this._data = this.GetComponentInParent<CharacterData>();
+			this._ammo = this._data.weaponHandler.gun.GetComponentInChildren<GunAmmo>();
+			
 			this._data.healthHandler.reviveAction += this.Reset;
 			this._data.weaponHandler.gun.ShootPojectileAction += this.Attack;
 		}
@@ -42,14 +46,27 @@ namespace CinnamonFlavour
 
 		private void Update()
 		{
-			if (this._data?.weaponHandler.gun.isReloading == true && this._activeDuration == 0) {
-				this._activeDuration = this._data.weaponHandler.gun.numberOfProjectiles;
+			if (!this._data) {
+				return;
+			}
+
+			var gun = this._data.weaponHandler.gun;
+			int numberOfProjectiles = gun.numberOfProjectiles;
+			int currentAmmo = (int) this._ammo.GetFieldValue("currentAmmo");
+			bool isLastShot = currentAmmo <= numberOfProjectiles && !gun.isReloading;
+
+			if (isLastShot && this._activeDuration == 0) {
+				this._activeDuration = numberOfProjectiles;
+			}
+
+			if (!isLastShot && this._activeDuration > 0) {
+				this._activeDuration = 0;
 			}
 
 			if (this._activeDuration > 0)
 			{
-				this._particleTransform.position = this._data.weaponHandler.gun.transform.position;
-				this._particleTransform.rotation = this._data.weaponHandler.gun.transform.rotation;
+				this._particleTransform.position = gun.transform.position;
+				this._particleTransform.rotation = gun.transform.rotation;
 			}
 
 			if (this._activeDuration > 0 && !this._isParticleSystemActive)

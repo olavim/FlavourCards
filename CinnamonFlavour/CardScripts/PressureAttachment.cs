@@ -9,6 +9,8 @@ namespace CinnamonFlavour
 	{
 		private float _remainingDuration = 0;
 		private float _hpMultiplier = 3f;
+		private float _speedMultiplier = 1.5f;
+		private float _jumpMultiplier = 1.25f;
 		private bool _isActive;
 		private CharacterData _data;
 
@@ -47,6 +49,8 @@ namespace CinnamonFlavour
 		{
 			if (!this._isActive)
 			{
+				this._data.stats.movementSpeed *= this._speedMultiplier;
+				this._data.stats.jump *= this._jumpMultiplier;
 				this._data.health *= this._hpMultiplier;
 				this._data.maxHealth *= this._hpMultiplier;
 				this._data.stats.InvokeMethod("ConfigureMassAndSize");
@@ -62,6 +66,8 @@ namespace CinnamonFlavour
 			if (this._isActive)
 			{
 				this._isActive = false;
+				this._data.stats.movementSpeed /= this._speedMultiplier;
+				this._data.stats.jump /= this._jumpMultiplier;
 				this._data.health /= this._hpMultiplier;
 				this._data.maxHealth /= this._hpMultiplier;
 				this._data.stats.InvokeMethod("ConfigureMassAndSize");

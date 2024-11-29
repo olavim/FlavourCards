@@ -10,6 +10,7 @@ namespace CinnamonFlavour
 
 		// 70% more reload speed = 1 / 1.7 reload time multiplier
 		private float _reloadTimeMultiplier = 1f / 1.7f;
+		private float _blockCooldownMultiplier = 0.5f;
 		private bool _isActive;
 		private CharacterData _data;
 		private GunAmmo _ammo;
@@ -50,6 +51,11 @@ namespace CinnamonFlavour
 			if (!this._isActive)
 			{
 				this._ammo.reloadTimeMultiplier *= this._reloadTimeMultiplier;
+				float counter = (float) this._ammo.GetFieldValue("reloadCounter");
+				this._ammo.SetFieldValue("reloadCounter", counter * this._reloadTimeMultiplier);
+
+				this._data.block.cdMultiplier *= this._blockCooldownMultiplier;
+				this._data.block.counter *= this._blockCooldownMultiplier;
 			}
 
 			this._isActive = true;
@@ -61,9 +67,13 @@ namespace CinnamonFlavour
 			if (this._isActive)
 			{
 				this._isActive = false;
+
 				this._ammo.reloadTimeMultiplier /= this._reloadTimeMultiplier;
 				float counter = (float) this._ammo.GetFieldValue("reloadCounter");
 				this._ammo.SetFieldValue("reloadCounter", counter / this._reloadTimeMultiplier);
+
+				this._data.block.cdMultiplier /= this._blockCooldownMultiplier;
+				this._data.block.counter /= this._blockCooldownMultiplier;
 			}
 		}
 	}

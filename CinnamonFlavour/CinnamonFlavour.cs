@@ -33,7 +33,7 @@ namespace CinnamonFlavour
 
 		private void Start()
 		{
-			var artBundle = LoadAssetBundle("art");
+			// var artBundle = LoadAssetBundle("art");
 			var attachmentsBundle = LoadAssetBundle("attachments");
 			var sfxBundle = LoadAssetBundle("sfx");
 
@@ -42,10 +42,10 @@ namespace CinnamonFlavour
 				RoundsResources.TryAdd(res.name, res);
 			}
 
-			foreach (var res in artBundle.LoadAllAssets<GameObject>())
-			{
-				CustomResources.Add(res.name, res);
-			}
+			// foreach (var res in artBundle.LoadAllAssets<GameObject>())
+			// {
+			// 	CustomResources.Add(res.name, res);
+			// }
 
 			foreach (var res in attachmentsBundle.LoadAllAssets<GameObject>())
 			{

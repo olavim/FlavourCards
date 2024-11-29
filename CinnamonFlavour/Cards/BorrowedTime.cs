@@ -29,7 +29,7 @@ namespace CinnamonFlavour
 
 		protected override string GetDescription()
 		{
-			return "+70% reload speed for 3s after branding an opponent";
+			return "+70% reload speed and -50% block cooldown for 3s after branding an opponent";
 		}
 
 		protected override CardInfo.Rarity GetRarity()

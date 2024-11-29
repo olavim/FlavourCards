@@ -28,7 +28,7 @@ namespace CinnamonFlavour
 
 		protected override string GetDescription()
 		{
-			return "Your first shot brands opponents.\nDisables continuous reloading.";
+			return "Your last shot brands nearby opponents.\nDisables continuous reloading.";
 		}
 
 		protected override CardInfo.Rarity GetRarity()

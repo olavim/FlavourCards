@@ -9,6 +9,7 @@ namespace CinnamonFlavour
 	{
 		public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
 		{
+			statModifiers.AddObjectToPlayer = (GameObject) CinnamonFlavour.CustomResources["A_Riposte"];
 			block.cdAdd = 0.5f;
 		}
 
@@ -16,7 +17,7 @@ namespace CinnamonFlavour
 		{
 			player.gameObject.GetOrAddComponent<RiposteAttachment>();
 			characterStats.GetAdditionalData().ShotsAfterBlockRefresh += 1;
-			gun.GetAdditionalData().DamageBranded *= 0.5f;
+			gun.GetAdditionalData().DamageToBranded *= 0.5f;
 		}
 
 		protected override GameObject GetCardArt()
@@ -31,7 +32,7 @@ namespace CinnamonFlavour
 
 		protected override string GetDescription()
 		{
-			return "Automatically shoot at a branded opponent when your block refreshes";
+			return "<nobr>Brand nearby enemies when you block.</nobr>\n<nobr>Shoot at a branded opponent on block refresh.</nobr>";
 		}
 
 		protected override CardInfo.Rarity GetRarity()
@@ -42,7 +43,6 @@ namespace CinnamonFlavour
 		protected override CardInfoStat[] GetStats()
 		{
 			return new CardInfoStat[] {
-				Utils.CreateCardInfoStat("+1", "Shots", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.Some),
 				Utils.CreateCardInfoStat("-50%", "DMG to branded", CardInfoStatType.Negative, CardInfoStat.SimpleAmount.aLotLower),
 				Utils.CreateCardInfoStat("+0.5s", "Block cooldown", CardInfoStatType.Negative, CardInfoStat.SimpleAmount.notAssigned)
 			};

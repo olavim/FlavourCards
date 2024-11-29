@@ -27,7 +27,7 @@ namespace CinnamonFlavour
 
 		protected override string GetDescription()
 		{
-			return "+200% HP for 3s after branding an opponent";
+			return "+200% HP and +50% movement speed for 3s after branding an opponent";
 		}
 
 		protected override CardInfo.Rarity GetRarity()

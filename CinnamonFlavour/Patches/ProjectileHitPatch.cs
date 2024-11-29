@@ -22,7 +22,7 @@ namespace CinnamonFlavour.Patches
             }
             
             var gun = __instance.ownWeapon.GetComponent<Gun>();
-            __instance.damage *= gun.GetAdditionalData().DamageBranded;
+            __instance.damage *= gun.GetAdditionalData().DamageToBranded;
         }
     }
 }

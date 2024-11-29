@@ -39,7 +39,7 @@ namespace CinnamonFlavour
 		protected override CardInfoStat[] GetStats()
 		{
 			return new CardInfoStat[] {
-				Utils.CreateCardInfoStat("+1s", "Brand duration", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.aLotOf),
+				Utils.CreateCardInfoStat("+2s", "Brand duration", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.aLotOf),
 				Utils.CreateCardInfoStat("-25%", "Block cooldown", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.slightlyLower)
 			};
 		}
