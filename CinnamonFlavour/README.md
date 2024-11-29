@@ -6,21 +6,16 @@ Balanced around vanilla cards and meant to be played together with them.
 
 | Name | Description | Rarity |
 |------|-------------|--------|
-| Borrowed Time     | Faster reload for a while after branding an opponent. | Common
+| Borrowed Time     | Faster reload and block cooldown for a while after branding an opponent. | Common
 | Codependent       | Get ammo when you damage a branded opponent. | Common
-| Enmity            | More damage against branded opponents. | Common
+| Enmity            | More brand damage and damage against branded opponents. | Common
 | Hot Iron          | More brand duration and damage. | Common
 | Modern Tools      | More brand duration and reload speed. | Common
-| Motivation Boost  | More movement speed for a while after branding an opponent. | Common
 | OSHA              | More brand duration and faster block cooldown. | Common
-| Pressure          | More hp for a while after branding an opponent. | Common
-| Taunt             | Block cooldown reduction for a while after branding an opponent. | Common
-| Ambush            | Brand nearby opponents when you block. | Uncommon
-| Ember in the Dark | Brand a random visible opponent when you start reloading. | Uncommon
-| High Noon         | Automatically shoot at a branded opponent after reloading. | Uncommon
-| Intimidate        | Your last shot brands opponents. | Uncommon
-| Loaded Question   | Your first shot brands opponents. | Uncommon
-| Riposte           | Automatically shoot at a branded opponent when your block refreshes. | Uncommon
+| Pressure          | More movement speed and hp for a while after branding an opponent. | Common
+| High Noon         | Brand a random visible opponent when you start reloading. Automatically shoot at a branded opponent after reloading. | Uncommon
+| Loaded Question   | Your last shot brands nearby opponents. | Uncommon
+| Riposte           | Brand nearby opponents when you block. Automatically shoot at a branded opponent when your block refreshes. | Uncommon
 | Lifeline          | Steal hp from branded opponents. | Rare
 | Menace            | Brand nearby opponents. | Rare
 | Scarring          | Double brand duration. | Rare
