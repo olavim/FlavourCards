@@ -2,12 +2,14 @@
 
 A themed pack focused on branding opponents. You get increasingly more powerful by mixing and matching combo pieces.
 
+Branded players take a percentage of their max HP over time (default is 2 seconds). You can further increase brand damage and duration, and otherwise make it more advantageous to brand others.
+
 Balanced around vanilla cards and meant to be played together with them.
 
 | Name | Description | Rarity |
 |------|-------------|--------|
-| Enmity          | More damage against branded opponents. | Common
-| Hot Iron        | More brand chance, brand duration and damage. | Common
+| Enmity          | More brand chance, damage against branded opponents and brand damage. | Common
+| Hot Iron        | More brand chance, brand duration and brand damage. | Common
 | Impression      | Much more brand chance and attack speed. | Common
 | Modern Tools    | More brand chance, brand duration and reload speed. | Common
 | OSHA            | More brand chance, brand duration and faster block cooldown. | Common
