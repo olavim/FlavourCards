@@ -2,7 +2,7 @@
 	<Import Project="..\RoundsReferences.props" />
 
 	<PropertyGroup>
-		<Version>0.3.0</Version>
+		<Version>0.3.1</Version>
 		<TargetFramework>net472</TargetFramework>
 		<AssemblyName>CinnamonFlavour</AssemblyName>
 	</PropertyGroup>
