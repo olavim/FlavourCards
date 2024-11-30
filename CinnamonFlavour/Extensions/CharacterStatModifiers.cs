@@ -8,7 +8,7 @@ namespace CinnamonFlavour.Extensions
     public class CharacterStatModifiersAdditionalData
     {
         private float _brandDuration = 2f;
-        private float _brandDamage = 1f;
+        private float _brandDamage = 0.01f;
 
         public int ShotsAfterReload { get; set; } = 0;
         public int ShotsAfterBlockRefresh { get; set; } = 0;
@@ -19,7 +19,7 @@ namespace CinnamonFlavour.Extensions
         }
         public float BrandDamage
         {
-            get => Mathf.Max(0.25f, this._brandDamage);
+            get => Mathf.Max(0.01f, this._brandDamage);
             set => this._brandDamage = value;
         }
         public float BrandDurationMultiplier { get; set; } = 1f;
@@ -50,7 +50,7 @@ namespace CinnamonFlavour.Extensions
             __instance.GetAdditionalData().ShotsAfterBlockRefresh = 0;
             __instance.GetAdditionalData().BrandDuration = 1f;
             __instance.GetAdditionalData().BrandDurationMultiplier = 1f;
-            __instance.GetAdditionalData().BrandDamage = 1f;
+            __instance.GetAdditionalData().BrandDamage = 0.01f;
             __instance.GetAdditionalData().DealtDamageToPlayerAction = default;
             __instance.GetAdditionalData().PlayerBrandedAction = default;
         }

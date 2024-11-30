@@ -1,9 +1,22 @@
 using CinnamonFlavour.Extensions;
 using HarmonyLib;
 using Photon.Pun;
+using UnityEngine;
 
 namespace CinnamonFlavour.Patches
 {
+    [HarmonyPatch(typeof(ProjectileHit), "Start")]
+    class ProjectileHitPatch_Start
+    {
+        private static void Prefix(ProjectileHit __instance)
+        {
+            if (__instance.GetAdditionalData().WillBrand)
+            {
+                __instance.GetComponent<SpawnedAttack>().SetColor(new Color32(100, 0, 0, 255));
+            }
+        }
+    }
+
     [HarmonyPatch(typeof(ProjectileHit), "RPCA_DoHit")]
     class ProjectileHitPatch_RPCADoHit
     {

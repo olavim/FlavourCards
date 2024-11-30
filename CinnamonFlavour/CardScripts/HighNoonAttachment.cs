@@ -12,9 +12,7 @@ namespace CinnamonFlavour
 	{
 		[SerializeField] private SoundEvent _soundActivate = default;
 		private bool _isActive;
-		private bool _startedReloading;
 		private float _activeDuration;
-		private CharacterData _data;
 		private WeaponHandler _wh;
 		private Player _player;
 		private CharacterStatModifiers _stats;
@@ -24,7 +22,6 @@ namespace CinnamonFlavour
 		{
 			this._soundActivate.variables.audioMixerGroup = SoundVolumeManager.Instance.audioMixer.FindMatchingGroups("SFX")[0];
 			this._wh = this.GetComponentInParent<WeaponHandler>();
-			this._data = this.GetComponentInParent<CharacterData>();
 			this._player = this.GetComponentInParent<Player>();
 			this._stats = this.GetComponentInParent<CharacterStatModifiers>();
 			this._lineEffect = this.GetComponentInChildren<LineEffect>(true);
@@ -49,7 +46,9 @@ namespace CinnamonFlavour
 			this._isActive = true;
 
 			var visibleOpponents = PlayerManager.instance.players
+				.Where(p => !p.data.dead)
 				.Where(p => p.teamID != this._player.teamID)
+				.Where(p => !p.data.block.IsBlocking())
 				.Where(p => PlayerManager.instance.CanSeePlayer(this.transform.position, p).canSee)
 				.ToList();
 

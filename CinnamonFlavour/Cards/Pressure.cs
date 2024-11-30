@@ -9,6 +9,7 @@ namespace CinnamonFlavour
 		public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
 		{
 			statModifiers.AddObjectToPlayer = (GameObject) CinnamonFlavour.CustomResources["A_Pressure"];
+			statModifiers.lifeSteal = 0.3f;
 		}
 
 		public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
@@ -37,7 +38,9 @@ namespace CinnamonFlavour
 
 		protected override CardInfoStat[] GetStats()
 		{
-			return new CardInfoStat[] {};
+			return new CardInfoStat[] {
+				Utils.CreateCardInfoStat("+30%", "Life steal", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.aLittleBitOf),
+			};
 		}
 
 		protected override CardThemeColor.CardThemeColorType GetTheme()

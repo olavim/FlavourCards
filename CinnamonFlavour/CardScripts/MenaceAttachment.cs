@@ -48,6 +48,7 @@ namespace CinnamonFlavour
 
 			var nearbyVisibleOpponents = PlayerManager.instance.players
 				.Where(p => p.teamID != brander.teamID)
+				.Where(p => !p.data.dead)
 				.Where(p => Vector2.Distance(brander.transform.position, p.transform.position) <= range)
 				.Where(p => PlayerManager.instance.CanSeePlayer(brander.transform.position, p).canSee);
 

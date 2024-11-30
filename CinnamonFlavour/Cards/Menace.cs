@@ -38,8 +38,7 @@ namespace CinnamonFlavour
 		protected override CardInfoStat[] GetStats()
 		{
 			return new CardInfoStat[] {
-				Utils.CreateCardInfoStat("-25%", "HP", CardInfoStatType.Negative, CardInfoStat.SimpleAmount.slightlyLower),
-				Utils.CreateCardInfoStat("+0.5s", "Reload time", CardInfoStatType.Negative, CardInfoStat.SimpleAmount.Some)
+				Utils.CreateCardInfoStat("-25%", "HP", CardInfoStatType.Negative, CardInfoStat.SimpleAmount.slightlyLower)
 			};
 		}
 

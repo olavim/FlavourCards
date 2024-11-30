@@ -7,8 +7,8 @@ namespace CinnamonFlavour
 	{
 		[SerializeField] private GameObject _hitEffect = default;
 
+		private readonly float _range = 6f;
 		private bool _done;
-		private float _range = 6f;
 
 		public override HasToReturn DoHitEffect(HitInfo hit)
 		{
@@ -23,7 +23,9 @@ namespace CinnamonFlavour
 			var brander = this.GetComponentInParent<SpawnedAttack>().spawner;
 			var targets = PlayerManager.instance.players
 				.Where(p => p.teamID != brander.teamID)
+				.Where(p => !p.data.dead)
 				.Where(p => Vector2.Distance(hit.point, p.transform.position) <= this._range)
+				.Where(p => !p.data.block.IsBlocking())
 				.Where(p => PlayerManager.instance.CanSeePlayer(point, p).canSee)
 				.ToList();
 

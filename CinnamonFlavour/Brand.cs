@@ -67,7 +67,7 @@ namespace CinnamonFlavour
 
 			if (this._damageCooldown <= 0)
 			{
-				float damage = 2f * this.Brander.data.stats.GetAdditionalData().BrandDamage;
+				float damage = this._player.data.maxHealth * this.Brander.data.stats.GetAdditionalData().BrandDamage;
 				this._player.data.healthHandler.TakeDamage(Vector2.up * damage, this.transform.position);
 				this._damageCooldown = 0.2f;
 			}

@@ -13,7 +13,7 @@ namespace CinnamonFlavour
 
 		public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
 		{
-			gun.GetAdditionalData().BrandChance += 0.1f;
+			gun.GetAdditionalData().BrandChance += 0.2f;
 			characterStats.GetAdditionalData().BrandDuration += 1f;
 		}
 
@@ -40,8 +40,8 @@ namespace CinnamonFlavour
 		protected override CardInfoStat[] GetStats()
 		{
 			return new CardInfoStat[] {
-				Utils.CreateCardInfoStat("+10%", "Chance to brand", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.aLittleBitOf),
-				Utils.CreateCardInfoStat("+1s", "Brand duration", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.aLotOf),
+				Utils.CreateCardInfoStat("+20%", "Chance to brand", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.aLotOf),
+				Utils.CreateCardInfoStat("+1s", "Brand duration", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.Some),
 				Utils.CreateCardInfoStat("-25%", "Reload time", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.slightlyLower)
 			};
 		}
