@@ -17,7 +17,8 @@ namespace CinnamonFlavour
 
 		[SerializeField] private SoundEvent _soundActivate = default;
 
-		private void Awake() {
+		private void Awake()
+		{
 			this._effectPrefab = (GameObject) CinnamonFlavour.CustomResources["E_LoadedQuestion"];
 			this._soundActivate.variables.audioMixerGroup = SoundVolumeManager.Instance.audioMixer.FindMatchingGroups("SFX")[0];
 		}
@@ -28,7 +29,7 @@ namespace CinnamonFlavour
 			this._particleSystems = this.GetComponentsInChildren<ParticleSystem>();
 			this._data = this.GetComponentInParent<CharacterData>();
 			this._ammo = this._data.weaponHandler.gun.GetComponentInChildren<GunAmmo>();
-			
+
 			this._data.healthHandler.reviveAction += this.Reset;
 			this._data.weaponHandler.gun.ShootPojectileAction += this.Attack;
 		}
@@ -46,7 +47,8 @@ namespace CinnamonFlavour
 
 		private void Update()
 		{
-			if (!this._data) {
+			if (!this._data)
+			{
 				return;
 			}
 
@@ -55,11 +57,13 @@ namespace CinnamonFlavour
 			int currentAmmo = (int) this._ammo.GetFieldValue("currentAmmo");
 			bool isLastShot = currentAmmo <= numberOfProjectiles && !gun.isReloading;
 
-			if (isLastShot && this._activeDuration == 0) {
+			if (isLastShot && this._activeDuration == 0)
+			{
 				this._activeDuration = numberOfProjectiles;
 			}
 
-			if (!isLastShot && this._activeDuration > 0) {
+			if (!isLastShot && this._activeDuration > 0)
+			{
 				this._activeDuration = 0;
 			}
 
@@ -78,7 +82,7 @@ namespace CinnamonFlavour
 				}
 				this._isParticleSystemActive = true;
 			}
-			
+
 			if (this._activeDuration == 0 && this._isParticleSystemActive)
 			{
 				foreach (var particleSystem in this._particleSystems)

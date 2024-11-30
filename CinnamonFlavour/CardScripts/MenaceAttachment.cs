@@ -30,11 +30,13 @@ namespace CinnamonFlavour
 			this._effectCooldown -= Time.deltaTime;
 			this._cooldown -= Time.deltaTime;
 
-			if (this._cooldown > 0) {
+			if (this._cooldown > 0)
+			{
 				return;
 			}
 
-			foreach (var lineEffect in this._lineEffects) {
+			foreach (var lineEffect in this._lineEffects)
+			{
 				GameObject.Destroy(lineEffect);
 			}
 
@@ -48,13 +50,16 @@ namespace CinnamonFlavour
 				.Where(p => p.teamID != brander.teamID)
 				.Where(p => Vector2.Distance(brander.transform.position, p.transform.position) <= range)
 				.Where(p => PlayerManager.instance.CanSeePlayer(brander.transform.position, p).canSee);
-			
-			foreach (var player in nearbyVisibleOpponents) {
+
+			foreach (var player in nearbyVisibleOpponents)
+			{
 				player.transform.GetComponent<BrandHandler>().Brand(brander);
 			}
 
-			if (this._effectCooldown <= 0) {
-				foreach (var player in nearbyVisibleOpponents) {
+			if (this._effectCooldown <= 0)
+			{
+				foreach (var player in nearbyVisibleOpponents)
+				{
 					var lineEffect = GameObject.Instantiate(this._lineEffectTemplate, this.transform);
 					lineEffect.GetComponent<LineEffect>().Play(this.transform, player.transform);
 					this._lineEffects.Add(lineEffect);
@@ -63,11 +68,13 @@ namespace CinnamonFlavour
 				this._effectCooldown = 0.6f;
 			}
 
-			if (this._lineEffects.Count > 0) {
+			if (this._lineEffects.Count > 0)
+			{
 				SoundManager.Instance.PlayAtPosition(this._soundActivate, SoundManager.Instance.GetTransform(), this.transform);
 			}
 
-			if (nearbyVisibleOpponents.Any()) {
+			if (nearbyVisibleOpponents.Any())
+			{
 				this._circlePlayLineAnimation.PlayWidth();
 				this._circlePlayLineAnimation.PlayOffset();
 			}

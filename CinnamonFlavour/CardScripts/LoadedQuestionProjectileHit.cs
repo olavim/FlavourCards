@@ -19,14 +19,14 @@ namespace CinnamonFlavour
 
 			GameObject.Instantiate(this._hitEffect, hit.point, Quaternion.identity);
 			var point = hit.point + (hit.normal * 0.1f);
-			
+
 			var brander = this.GetComponentInParent<SpawnedAttack>().spawner;
 			var targets = PlayerManager.instance.players
 				.Where(p => p.teamID != brander.teamID)
 				.Where(p => Vector2.Distance(hit.point, p.transform.position) <= this._range)
 				.Where(p => PlayerManager.instance.CanSeePlayer(point, p).canSee)
 				.ToList();
-			
+
 			foreach (var target in targets)
 			{
 				target.transform.GetComponent<BrandHandler>().Brand(brander);

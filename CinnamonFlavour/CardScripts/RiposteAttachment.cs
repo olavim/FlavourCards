@@ -26,7 +26,8 @@ namespace CinnamonFlavour
 			this._player.data.block.BlockRechargeAction -= this.OnBlockRefreshed;
 		}
 
-		private void OnBlockRefreshed() {
+		private void OnBlockRefreshed()
+		{
 			this.StartCoroutine(this.Shoot(this._stats.GetAdditionalData().ShotsAfterBlockRefresh));
 		}
 
@@ -38,17 +39,19 @@ namespace CinnamonFlavour
 			{
 				yield return new WaitForSeconds(0.1f);
 
-				if (this._wh.gun.isReloading) {
+				if (this._wh.gun.isReloading)
+				{
 					break;
 				}
-				
+
 				var visibleBrandedOpponents = opponents
 					.Where(p => !p.data.dead)
 					.Where(p => p.transform.GetComponent<BrandHandler>().IsBrandedBy(this._player))
 					.Where(p => PlayerManager.instance.CanSeePlayer(this.transform.position, p).canSee)
 					.ToList();
-				
-				if (visibleBrandedOpponents.Count == 0) {
+
+				if (visibleBrandedOpponents.Count == 0)
+				{
 					break;
 				}
 
@@ -58,7 +61,8 @@ namespace CinnamonFlavour
 				bool didShoot = this._wh.gun.Attack(0f, true, 1f, 1f, true);
 				this._wh.gun.SetFieldValue("forceShootDir", Vector3.zero);
 
-				if (!didShoot) {
+				if (!didShoot)
+				{
 					break;
 				}
 			}
@@ -73,8 +77,9 @@ namespace CinnamonFlavour
 				.Where(p => p.teamID != brander.teamID)
 				.Where(p => Vector2.Distance(brander.transform.position, p.transform.position) <= range)
 				.Where(p => PlayerManager.instance.CanSeePlayer(brander.transform.position, p).canSee);
-			
-			foreach (var player in nearbyVisibleOpponents) {
+
+			foreach (var player in nearbyVisibleOpponents)
+			{
 				player.transform.GetComponent<BrandHandler>().Brand(brander);
 			}
 		}

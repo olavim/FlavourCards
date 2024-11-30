@@ -37,28 +37,33 @@ namespace CinnamonFlavour
 			this._stats.OnReloadDoneAction -= this.OnReloadDone;
 		}
 
-		private void OnReloadDone(int bullets) {
+		private void OnReloadDone(int bullets)
+		{
 			int maxShots = Mathf.Min(this._stats.GetAdditionalData().ShotsAfterReload, Mathf.CeilToInt((float) bullets / this._wh.gun.numberOfProjectiles));
 			this.StartCoroutine(this.Shoot(maxShots));
 		}
 
 		private void Update()
 		{
-			if (!this._startedReloading && this._data?.weaponHandler.gun.isReloading == true) {
+			if (!this._startedReloading && this._data?.weaponHandler.gun.isReloading == true)
+			{
 				this._startedReloading = true;
 			}
 
-			if (this._startedReloading && this._data?.weaponHandler.gun.isReloading != true) {
+			if (this._startedReloading && this._data?.weaponHandler.gun.isReloading != true)
+			{
 				this._startedReloading = false;
 			}
 
-			if (this._startedReloading && !this._isActive) {
+			if (this._startedReloading && !this._isActive)
+			{
 				var visibleOpponents = PlayerManager.instance.players
 					.Where(p => p.teamID != this._player.teamID)
 					.Where(p => PlayerManager.instance.CanSeePlayer(this.transform.position, p).canSee)
 					.ToList();
-				
-				if (visibleOpponents.Count > 0) {
+
+				if (visibleOpponents.Count > 0)
+				{
 					var randomTarget = visibleOpponents[UnityEngine.Random.Range(0, visibleOpponents.Count)];
 					randomTarget.transform.GetComponent<BrandHandler>().Brand(this._player);
 
@@ -69,15 +74,18 @@ namespace CinnamonFlavour
 				}
 			}
 
-			if (this._isActive) {
+			if (this._isActive)
+			{
 				this._activeDuration -= Time.deltaTime;
 
-				if (this._activeDuration <= 0) {
+				if (this._activeDuration <= 0)
+				{
 					this._lineEffect.Stop();
 					this._lineEffect.gameObject.SetActive(false);
 				}
 
-				if (this._data?.weaponHandler.gun.isReloading == false) {
+				if (this._data?.weaponHandler.gun.isReloading == false)
+				{
 					this._isActive = false;
 				}
 			}
@@ -91,17 +99,19 @@ namespace CinnamonFlavour
 			{
 				yield return new WaitForSeconds(0.1f);
 
-				if (this._wh.gun.isReloading) {
+				if (this._wh.gun.isReloading)
+				{
 					break;
 				}
-				
+
 				var visibleBrandedOpponents = opponents
 					.Where(p => !p.data.dead)
 					.Where(p => p.transform.GetComponent<BrandHandler>().IsBrandedBy(this._player))
 					.Where(p => PlayerManager.instance.CanSeePlayer(this.transform.position, p).canSee)
 					.ToList();
-				
-				if (visibleBrandedOpponents.Count == 0) {
+
+				if (visibleBrandedOpponents.Count == 0)
+				{
 					break;
 				}
 
@@ -111,7 +121,8 @@ namespace CinnamonFlavour
 				bool didShoot = this._wh.gun.Attack(0f, true, 1f, 1f, true);
 				this._wh.gun.SetFieldValue("forceShootDir", Vector3.zero);
 
-				if (!didShoot) {
+				if (!didShoot)
+				{
 					break;
 				}
 			}

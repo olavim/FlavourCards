@@ -25,7 +25,7 @@ namespace CinnamonFlavour
 			using var stream = asm.GetManifestResourceStream($"CinnamonFlavour.Assets.{name}");
 			return AssetBundle.LoadFromStream(stream);
 		}
-		
+
 		private void Awake()
 		{
 			new Harmony(ModId).PatchAll();

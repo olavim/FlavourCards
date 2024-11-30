@@ -12,11 +12,13 @@ namespace CinnamonFlavour.Extensions
 
         public int ShotsAfterReload { get; set; } = 0;
         public int ShotsAfterBlockRefresh { get; set; } = 0;
-        public float BrandDuration {
+        public float BrandDuration
+        {
             get => Mathf.Max(0.25f, this._brandDuration);
             set => this._brandDuration = value;
         }
-        public float BrandDamage {
+        public float BrandDamage
+        {
             get => Mathf.Max(0.25f, this._brandDamage);
             set => this._brandDamage = value;
         }
@@ -38,7 +40,7 @@ namespace CinnamonFlavour.Extensions
             return data.GetOrCreateValue(characterstats);
         }
     }
-    
+
     [HarmonyPatch(typeof(CharacterStatModifiers), "ResetStats")]
     class CharacterStatModifiersPatch_ResetStats
     {
@@ -53,13 +55,14 @@ namespace CinnamonFlavour.Extensions
             __instance.GetAdditionalData().PlayerBrandedAction = default;
         }
     }
-    
+
     [HarmonyPatch(typeof(CharacterStatModifiers), "DealtDamage")]
     class CharacterStatModifiersPatch_DealtDamage
     {
         private static void Postfix(CharacterStatModifiers __instance, Vector2 damage, bool selfDamage, Player damagedPlayer)
         {
-            if (damagedPlayer != null) {
+            if (damagedPlayer != null)
+            {
                 __instance.GetAdditionalData().DealtDamageToPlayerAction?.Invoke(damage, selfDamage, damagedPlayer);
             }
         }

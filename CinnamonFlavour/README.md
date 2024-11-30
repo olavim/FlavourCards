@@ -6,16 +6,17 @@ Balanced around vanilla cards and meant to be played together with them.
 
 | Name | Description | Rarity |
 |------|-------------|--------|
-| Borrowed Time     | Faster reload and block cooldown for a while after branding an opponent. | Common
-| Codependent       | Get ammo when you damage a branded opponent. | Common
-| Enmity            | More brand damage and damage against branded opponents. | Common
-| Hot Iron          | More brand duration and damage. | Common
-| Modern Tools      | More brand duration and reload speed. | Common
-| OSHA              | More brand duration and faster block cooldown. | Common
-| Pressure          | More movement speed and hp for a while after branding an opponent. | Common
-| High Noon         | Brand a random visible opponent when you start reloading. Automatically shoot at a branded opponent after reloading. | Uncommon
-| Loaded Question   | Your last shot brands nearby opponents. | Uncommon
-| Riposte           | Brand nearby opponents when you block. Automatically shoot at a branded opponent when your block refreshes. | Uncommon
-| Lifeline          | Steal hp from branded opponents. | Rare
-| Menace            | Brand nearby opponents. | Rare
-| Scarring          | Double brand duration. | Rare
+| Enmity          | More damage against branded opponents. | Common
+| Hot Iron        | More brand chance, brand duration and damage. | Common
+| Impression      | Much more brand chance and attack speed. | Common
+| Modern Tools    | More brand chance, brand duration and reload speed. | Common
+| OSHA            | More brand chance, brand duration and faster block cooldown. | Common
+| Borrowed Time   | Faster reload and block cooldown for a while after branding an opponent. | Uncommon
+| Codependent     | Get ammo when you damage a branded opponent. | Uncommon
+| High Noon       | Brand a random visible opponent when you start reloading. Automatically shoot at a branded opponent after reloading. | Uncommon
+| Loaded Question | Your last shot brands nearby opponents. | Uncommon
+| Pressure        | More movement speed and hp for a while after branding an opponent. | Uncommon
+| Riposte         | Brand nearby opponents when you block. Automatically shoot at a branded opponent when your block refreshes. | Uncommon
+| Lifeline        | Steal hp from branded opponents. | Rare
+| Menace          | Brand nearby opponents. | Rare
+| Scarring        | Double brand duration. | Rare

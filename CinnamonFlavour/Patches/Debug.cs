@@ -9,16 +9,19 @@ namespace CinnamonFlavour.Patches
     [HarmonyPatch(typeof(DevConsole), "Send")]
     class Debug_DevConsolePatch_Send
     {
-        static bool Prefix(string message) {
-            if (message.StartsWith("/brand")) {
+        static bool Prefix(string message)
+        {
+            if (message.StartsWith("/brand"))
+            {
                 string[] parts = message.Split(' ');
                 int branderID = parts.Length > 1 ? int.Parse(parts[1]) : 0;
                 int targetID = parts.Length > 2 ? int.Parse(parts[2]) : 0;
                 float duration = parts.Length > 3 ? float.Parse(parts[3]) : 3600;
-                
+
                 Player target = PlayerManager.instance.players.Find(p => p.playerID == targetID);
 
-                if (!target) {
+                if (!target)
+                {
                     UnityEngine.Debug.Log("Invalid target: " + targetID);
                 }
 
@@ -27,8 +30,10 @@ namespace CinnamonFlavour.Patches
                 return false;
             }
 
-            if (message.StartsWith("/resetbrands")) {
-                foreach (var player in PlayerManager.instance.players) {
+            if (message.StartsWith("/resetbrands"))
+            {
+                foreach (var player in PlayerManager.instance.players)
+                {
                     player.transform.GetComponent<BrandHandler>().Reset();
                 }
 
@@ -42,7 +47,8 @@ namespace CinnamonFlavour.Patches
     [HarmonyPatch(typeof(LevelManager), "SpawnMap")]
     class Debug_LevelManagerPatch_SpawnMap
     {
-        static bool Prefix(string message) {
+        static bool Prefix(string message)
+        {
             return !message.StartsWith("/brand") && !message.StartsWith("/resetbrands");
         }
     }

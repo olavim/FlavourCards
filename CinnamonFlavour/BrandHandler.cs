@@ -1,5 +1,5 @@
 using CinnamonFlavour.Extensions;
-using System;
+using Photon.Pun;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -15,7 +15,8 @@ namespace CinnamonFlavour
 		private GameObject _brandPrefab;
 		private GameObject _brandContainer;
 
-		private void Awake() {
+		private void Awake()
+		{
 			this._brandPrefab = (GameObject) CinnamonFlavour.CustomResources["Brand"];
 			this._brandContainer = new GameObject("Brands");
 			this._brandContainer.transform.SetParent(this.transform);
@@ -37,16 +38,37 @@ namespace CinnamonFlavour
 			this._data.healthHandler.reviveAction -= this.Reset;
 		}
 
-		public void Brand(Player brander) {
+		public void Brand(Player brander)
+		{
 			var stats = brander.data.stats;
 			float duration = stats.GetAdditionalData().BrandDuration * stats.GetAdditionalData().BrandDurationMultiplier;
 			this.Brand(brander.playerID, duration);
 		}
 
-		public void Brand(int branderID, float duration) {
+		internal void Brand(int branderID, float duration)
+		{
+			if (!this._player.data.view.IsMine)
+			{
+				return;
+			}
+
+			if (PhotonNetwork.OfflineMode)
+			{
+				this.RPCA_Brand(branderID, duration);
+			}
+			else
+			{
+				this._player.data.view.RPC("RPCA_Brand", RpcTarget.All, branderID, duration);
+			}
+		}
+
+		[PunRPC]
+		private void RPCA_Brand(int branderID, float duration)
+		{
 			var brander = PlayerManager.instance.players.FirstOrDefault(p => p.playerID == branderID);
 
-			if (!this._brands.ContainsKey(branderID)) {
+			if (!this._brands.ContainsKey(branderID))
+			{
 				this._brands.Add(branderID, 0);
 
 				var go = GameObject.Instantiate(this._brandPrefab, this._brandContainer.transform);
@@ -58,20 +80,25 @@ namespace CinnamonFlavour
 
 			this._brands[branderID] = duration;
 
-			if (brander) {
+			if (brander)
+			{
 				brander.data.stats.GetAdditionalData().PlayerBrandedAction?.Invoke(this._player);
 			}
 		}
 
-		public bool IsBrandedBy(Player player) {
+		public bool IsBrandedBy(Player player)
+		{
 			return this._brands.ContainsKey(player.playerID);
 		}
 
-		private void Update() {
-			foreach (var branderID in this._brands.Keys.ToList()) {
+		private void Update()
+		{
+			foreach (var branderID in this._brands.Keys.ToList())
+			{
 				this._brands[branderID] -= Time.deltaTime;
 
-				if (this._brands[branderID] <= 0) {
+				if (this._brands[branderID] <= 0)
+				{
 					GameObject.Destroy(this._brandVisuals[branderID]);
 
 					this._brands.Remove(branderID);
@@ -80,10 +107,12 @@ namespace CinnamonFlavour
 			}
 		}
 
-		public void Reset() {
+		public void Reset()
+		{
 			this._brands = new Dictionary<int, float>();
 
-			foreach (var go in this._brandVisuals.Values.ToList()) {
+			foreach (var go in this._brandVisuals.Values.ToList())
+			{
 				GameObject.Destroy(go);
 			}
 

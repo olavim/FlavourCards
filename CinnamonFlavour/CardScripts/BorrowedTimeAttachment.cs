@@ -36,7 +36,8 @@ namespace CinnamonFlavour
 
 		private void Update()
 		{
-			if (this._remainingDuration > 0) {
+			if (this._remainingDuration > 0)
+			{
 				this._remainingDuration -= Time.deltaTime;
 			}
 

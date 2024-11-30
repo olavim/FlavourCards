@@ -35,7 +35,8 @@ namespace CinnamonFlavour
 
 		private void Update()
 		{
-			if (this._remainingDuration > 0) {
+			if (this._remainingDuration > 0)
+			{
 				this._remainingDuration -= Time.deltaTime;
 			}
 
@@ -56,7 +57,7 @@ namespace CinnamonFlavour
 				this._data.stats.InvokeMethod("ConfigureMassAndSize");
 				this._startEvent.Invoke();
 			}
-			
+
 			this._isActive = true;
 			this._remainingDuration = 3f;
 		}

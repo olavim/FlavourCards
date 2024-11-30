@@ -19,7 +19,8 @@ namespace CinnamonFlavour
 
         private void SetAudioMixerGroup(SoundEvent soundEvent, AudioMixerGroup group)
         {
-            if (!soundEvent) {
+            if (!soundEvent)
+            {
                 return;
             }
 

@@ -41,7 +41,7 @@ namespace CinnamonFlavour
 				.FindAll(p => !p.data.dead)
 				.FindAll(p => p.teamID != this._data.player.teamID)
 				.FindAll(p => p.GetComponent<BrandHandler>().IsBrandedBy(this._data.player));
-			
+
 			if (this._giveEffects.Count < this._currentTargets.Count)
 			{
 				this.AddGiveEffects(this._currentTargets.Count - this._giveEffects.Count);
@@ -57,7 +57,8 @@ namespace CinnamonFlavour
 				this._currentTargets[i].data.healthHandler.TakeDamage(this._dmg * Vector2.up, this.transform.position, null, this._data.player, true, false);
 			}
 
-			if (this._currentTargets.Count > 0) {
+			if (this._currentTargets.Count > 0)
+			{
 				this._data.healthHandler.Heal(this._healAmount * this._currentTargets.Count);
 				SoundManager.Instance.PlayAtPosition(this._soundHeal, SoundManager.Instance.GetTransform(), this.transform);
 
