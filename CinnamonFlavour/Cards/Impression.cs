@@ -8,7 +8,7 @@ namespace CinnamonFlavour
 	{
 		public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
 		{
-			gun.attackSpeed = 0.8f;
+			gun.attackSpeed = 0.666666f;
 		}
 
 		public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
@@ -40,7 +40,7 @@ namespace CinnamonFlavour
 		{
 			return new CardInfoStat[] {
 				Utils.CreateCardInfoStat("+25%", "Chance to brand", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.aLotOf),
-				Utils.CreateCardInfoStat("+25%", "ATKSPD", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.aLittleBitOf)
+				Utils.CreateCardInfoStat("+50%", "ATKSPD", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.Some)
 			};
 		}
 

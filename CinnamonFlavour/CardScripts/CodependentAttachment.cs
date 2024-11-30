@@ -1,4 +1,4 @@
-using CinnamonFlavour.Extensions;
+using System.Linq;
 using UnboundLib;
 using UnityEngine;
 
@@ -15,17 +15,22 @@ namespace CinnamonFlavour
 			this._player = this.GetComponent<Player>();
 			this._gun = this._player.data.weaponHandler.gun;
 			this._gunAmmo = this._gun.GetComponentInChildren<GunAmmo>();
-			this.GetComponent<CharacterStatModifiers>().GetAdditionalData().DealtDamageToPlayerAction += this.OnDealtDamage;
+			this._gun.ShootPojectileAction += this.OnShoot;
 		}
 
 		private void OnDestroy()
 		{
-			this.GetComponent<CharacterStatModifiers>().GetAdditionalData().DealtDamageToPlayerAction -= this.OnDealtDamage;
+			this._gun.ShootPojectileAction -= this.OnShoot;
 		}
 
-		private void OnDealtDamage(Vector2 damage, bool selfDamage, Player player)
+		private void OnShoot(GameObject projectile)
 		{
-			if (!selfDamage && player.GetComponent<BrandHandler>().IsBrandedBy(this._player))
+			bool hasBrandedOpponent = PlayerManager.instance.players
+				.Where(p => !p.data.dead)
+				.Where(p => p.teamID != this._player.teamID)
+				.Any(p => p.GetComponent<BrandHandler>().IsBrandedBy(this._player));
+
+			if (hasBrandedOpponent)
 			{
 				this.ReloadAmmo();
 			}
@@ -33,11 +38,10 @@ namespace CinnamonFlavour
 
 		private void ReloadAmmo()
 		{
-			int bonusAmmo = this._gun.GetAdditionalData().AmmoOnHitBranded;
 			int currentAmmo = (int) this._gunAmmo.GetFieldValue("currentAmmo");
 
 			this._gun.isReloading = false;
-			this._gunAmmo.SetFieldValue("currentAmmo", currentAmmo + bonusAmmo);
+			this._gunAmmo.SetFieldValue("currentAmmo", currentAmmo + 1);
 			this._gunAmmo.InvokeMethod("SoundStopReloadInProgress");
 			this._gunAmmo.InvokeMethod("SetActiveBullets", false);
 		}
