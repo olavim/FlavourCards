@@ -49,7 +49,7 @@ namespace VanillaFlavour
 		{
 			return new CardInfoStat[] {
 				Utils.CreateCardInfoStat("+70%", "DMG", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.Some),
-				Utils.CreateCardInfoStat("+30%", "Reload speed", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.Some),
+				Utils.CreateCardInfoStat("-30%", "Reload time", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.Some),
 				Utils.CreateCardInfoStat("-1", "Bullet", CardInfoStatType.Negative, CardInfoStat.SimpleAmount.notAssigned)
 			};
 		}

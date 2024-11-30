@@ -34,7 +34,7 @@ namespace VanillaFlavour
 		{
 			return new CardInfoStat[] {
 				Utils.CreateCardInfoStat("+100%", "Projectile speed", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.aLotOf),
-				Utils.CreateCardInfoStat("+30%", "Reload speed", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.notAssigned)
+				Utils.CreateCardInfoStat("-30%", "Reload time", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.notAssigned)
 			};
 		}
 
