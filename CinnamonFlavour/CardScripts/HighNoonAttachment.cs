@@ -30,6 +30,7 @@ namespace CinnamonFlavour
 			this._lineEffect = this.GetComponentInChildren<LineEffect>(true);
 
 			this._stats.OnReloadDoneAction += this.OnReloadDone;
+			this._stats.OutOfAmmpAction += this.OnReloadStarted;
 		}
 
 		private void OnDestroy()
@@ -43,37 +44,29 @@ namespace CinnamonFlavour
 			this.StartCoroutine(this.Shoot(maxShots));
 		}
 
+		private void OnReloadStarted(int bullets)
+		{
+			this._isActive = true;
+
+			var visibleOpponents = PlayerManager.instance.players
+				.Where(p => p.teamID != this._player.teamID)
+				.Where(p => PlayerManager.instance.CanSeePlayer(this.transform.position, p).canSee)
+				.ToList();
+
+			if (visibleOpponents.Count > 0)
+			{
+				var randomTarget = visibleOpponents[UnityEngine.Random.Range(0, visibleOpponents.Count)];
+				randomTarget.transform.GetComponent<BrandHandler>().Brand(this._player);
+
+				this._isActive = true;
+				this._activeDuration = 0.2f;
+				this._lineEffect.Play(this.transform, randomTarget.transform, 0f);
+				SoundManager.Instance.PlayAtPosition(this._soundActivate, SoundManager.Instance.GetTransform(), randomTarget.transform);
+			}
+		}
+
 		private void Update()
 		{
-			if (!this._startedReloading && this._data?.weaponHandler.gun.isReloading == true)
-			{
-				this._startedReloading = true;
-			}
-
-			if (this._startedReloading && this._data?.weaponHandler.gun.isReloading != true)
-			{
-				this._startedReloading = false;
-			}
-
-			if (this._startedReloading && !this._isActive)
-			{
-				var visibleOpponents = PlayerManager.instance.players
-					.Where(p => p.teamID != this._player.teamID)
-					.Where(p => PlayerManager.instance.CanSeePlayer(this.transform.position, p).canSee)
-					.ToList();
-
-				if (visibleOpponents.Count > 0)
-				{
-					var randomTarget = visibleOpponents[UnityEngine.Random.Range(0, visibleOpponents.Count)];
-					randomTarget.transform.GetComponent<BrandHandler>().Brand(this._player);
-
-					this._isActive = true;
-					this._activeDuration = 0.2f;
-					this._lineEffect.Play(this.transform, randomTarget.transform, 0f);
-					SoundManager.Instance.PlayAtPosition(this._soundActivate, SoundManager.Instance.GetTransform(), randomTarget.transform);
-				}
-			}
-
 			if (this._isActive)
 			{
 				this._activeDuration -= Time.deltaTime;
@@ -82,10 +75,6 @@ namespace CinnamonFlavour
 				{
 					this._lineEffect.Stop();
 					this._lineEffect.gameObject.SetActive(false);
-				}
-
-				if (this._data?.weaponHandler.gun.isReloading == false)
-				{
 					this._isActive = false;
 				}
 			}
