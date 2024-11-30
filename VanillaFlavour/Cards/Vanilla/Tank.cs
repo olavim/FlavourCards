@@ -36,7 +36,7 @@ namespace VanillaFlavour
 		{
 			return new CardInfoStat[] {
 				Utils.CreateCardInfoStat("+100%", "HP", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.aHugeAmountOf),
-				Utils.CreateCardInfoStat("-25%", "ATKSPD", CardInfoStatType.Negative, CardInfoStat.SimpleAmount.slightlyLower),
+				Utils.CreateCardInfoStat("-20%", "ATKSPD", CardInfoStatType.Negative, CardInfoStat.SimpleAmount.slightlyLower),
 				Utils.CreateCardInfoStat("+0.5s", "Reload time", CardInfoStatType.Negative, CardInfoStat.SimpleAmount.notAssigned)
 			};
 		}
