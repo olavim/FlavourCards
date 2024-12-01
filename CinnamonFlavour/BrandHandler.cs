@@ -2,6 +2,7 @@ using CinnamonFlavour.Extensions;
 using Photon.Pun;
 using System.Collections.Generic;
 using System.Linq;
+using UnboundLib;
 using UnityEngine;
 
 namespace CinnamonFlavour
@@ -10,8 +11,8 @@ namespace CinnamonFlavour
 	{
 		private Player _player;
 		private CharacterData _data;
-		private Dictionary<int, float> _brands;
-		private Dictionary<int, GameObject> _brandVisuals;
+		private Dictionary<int, float> _brandDurations;
+		private Dictionary<int, GameObject> _brands;
 		private GameObject _brandPrefab;
 		private GameObject _brandContainer;
 
@@ -29,8 +30,8 @@ namespace CinnamonFlavour
 			this._data = this._player.data;
 			this._data.healthHandler.reviveAction += this.Reset;
 
-			this._brands = new Dictionary<int, float>();
-			this._brandVisuals = new Dictionary<int, GameObject>();
+			this._brandDurations = new Dictionary<int, float>();
+			this._brands = new Dictionary<int, GameObject>();
 		}
 
 		private void OnDestroy()
@@ -67,18 +68,22 @@ namespace CinnamonFlavour
 		{
 			var brander = PlayerManager.instance.players.FirstOrDefault(p => p.playerID == branderID);
 
-			if (!this._brands.ContainsKey(branderID))
+			if (!this._brandDurations.ContainsKey(branderID))
 			{
-				this._brands.Add(branderID, 0);
+				this._brandDurations.Add(branderID, 0);
 
 				var go = GameObject.Instantiate(this._brandPrefab, this._brandContainer.transform);
+
+				var spawnedAttack = go.GetOrAddComponent<SpawnedAttack>();
+				spawnedAttack.spawner = brander;
+
 				var brand = go.GetComponent<Brand>();
 				brand.Brander = brander;
 				brand.Color = PlayerSkinBank.GetPlayerSkinColors(branderID).color;
-				this._brandVisuals.Add(branderID, go);
+				this._brands.Add(branderID, go);
 			}
 
-			this._brands[branderID] = duration;
+			this._brandDurations[branderID] = duration;
 
 			if (brander)
 			{
@@ -88,35 +93,56 @@ namespace CinnamonFlavour
 
 		public bool IsBrandedBy(Player player)
 		{
-			return this._brands.ContainsKey(player.playerID);
+			return this._brandDurations.ContainsKey(player.playerID);
 		}
 
 		private void Update()
 		{
-			foreach (var branderID in this._brands.Keys.ToList())
+			foreach (var branderID in this._brandDurations.Keys.ToList())
 			{
-				this._brands[branderID] -= Time.deltaTime;
+				this._brandDurations[branderID] -= Time.deltaTime;
 
-				if (this._brands[branderID] <= 0)
+				if (this._brandDurations[branderID] <= 0)
 				{
-					GameObject.Destroy(this._brandVisuals[branderID]);
-
-					this._brands.Remove(branderID);
-					this._brandVisuals.Remove(branderID);
+					this.ExpireBrand(branderID);
 				}
 			}
 		}
 
+		private void ExpireBrand(int branderID)
+		{
+			var brander = PlayerManager.instance.players.FirstOrDefault(p => p.playerID == branderID);
+
+			if (brander)
+			{
+				var expireEffects = brander.data.stats.GetAdditionalData().BrandObjectsToSpawn
+					.Where(x => x.Trigger == BrandObjectsToSpawn.SpawnTrigger.Expire)
+					.ToList();
+
+				var spawnedAttack = this._brands[branderID].GetComponent<SpawnedAttack>();
+
+				foreach (var effect in expireEffects)
+				{
+					BrandObjectsToSpawn.SpawnObject(effect, this._player.transform.position, brander, spawnedAttack);
+				}
+			}
+
+			GameObject.Destroy(this._brands[branderID]);
+
+			this._brandDurations.Remove(branderID);
+			this._brands.Remove(branderID);
+		}
+
 		public void Reset()
 		{
-			this._brands = new Dictionary<int, float>();
+			this._brandDurations = new Dictionary<int, float>();
 
-			foreach (var go in this._brandVisuals.Values.ToList())
+			foreach (var go in this._brands.Values.ToList())
 			{
 				GameObject.Destroy(go);
 			}
 
-			this._brandVisuals = new Dictionary<int, GameObject>();
+			this._brands = new Dictionary<int, GameObject>();
 		}
 	}
 }

@@ -2,6 +2,7 @@ using CinnamonFlavour.Extensions;
 using Sonigon;
 using SoundImplementation;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnboundLib;
 using UnityEngine;
@@ -16,7 +17,8 @@ namespace CinnamonFlavour
 		private WeaponHandler _wh;
 		private Player _player;
 		private CharacterStatModifiers _stats;
-		private LineEffect _lineEffect;
+		private GameObject _lineEffectPrefab;
+		private List<LineEffect> _lineEffects = new();
 
 		private void Start()
 		{
@@ -24,7 +26,7 @@ namespace CinnamonFlavour
 			this._wh = this.GetComponentInParent<WeaponHandler>();
 			this._player = this.GetComponentInParent<Player>();
 			this._stats = this.GetComponentInParent<CharacterStatModifiers>();
-			this._lineEffect = this.GetComponentInChildren<LineEffect>(true);
+			this._lineEffectPrefab = this.transform.Find("LineEffect").gameObject;
 
 			this._stats.OnReloadDoneAction += this.OnReloadDone;
 			this._stats.OutOfAmmpAction += this.OnReloadStarted;
@@ -52,15 +54,22 @@ namespace CinnamonFlavour
 				.Where(p => PlayerManager.instance.CanSeePlayer(this.transform.position, p).canSee)
 				.ToList();
 
+			foreach (var opponent in visibleOpponents)
+			{
+				opponent.GetComponent<BrandHandler>().Brand(this._player);
+
+				var go = GameObject.Instantiate(this._lineEffectPrefab, this.transform);
+				var lineEffect = go.GetComponent<LineEffect>();
+				this._lineEffects.Add(lineEffect);
+				lineEffect.Play(this.transform, opponent.transform, 0f);
+
+				SoundManager.Instance.PlayAtPosition(this._soundActivate, SoundManager.Instance.GetTransform(), opponent.transform);
+			}
+
 			if (visibleOpponents.Count > 0)
 			{
-				var randomTarget = visibleOpponents[UnityEngine.Random.Range(0, visibleOpponents.Count)];
-				randomTarget.transform.GetComponent<BrandHandler>().Brand(this._player);
-
 				this._isActive = true;
 				this._activeDuration = 0.2f;
-				this._lineEffect.Play(this.transform, randomTarget.transform, 0f);
-				SoundManager.Instance.PlayAtPosition(this._soundActivate, SoundManager.Instance.GetTransform(), randomTarget.transform);
 			}
 		}
 
@@ -72,8 +81,13 @@ namespace CinnamonFlavour
 
 				if (this._activeDuration <= 0)
 				{
-					this._lineEffect.Stop();
-					this._lineEffect.gameObject.SetActive(false);
+					foreach (var lineEffect in this._lineEffects)
+					{
+						lineEffect.Stop();
+						GameObject.Destroy(lineEffect.gameObject);
+					}
+
+					this._lineEffects.Clear();
 					this._isActive = false;
 				}
 			}
@@ -104,8 +118,11 @@ namespace CinnamonFlavour
 				}
 
 				var target = visibleBrandedOpponents[UnityEngine.Random.Range(0, visibleBrandedOpponents.Count)];
+				var targetPos = target.transform.position;
+				var myPos = this.transform.position;
 
-				this._wh.gun.SetFieldValue("forceShootDir", target.transform.position - this._player.transform.position);
+				var compensation = (float) this._wh.gun.InvokeMethod("GetRangeCompensation", Vector3.Distance(targetPos, myPos)) * Vector3.up;
+				this._wh.gun.SetFieldValue("forceShootDir", compensation + targetPos - myPos);
 				bool didShoot = this._wh.gun.Attack(0f, true, 1f, 1f, true);
 				this._wh.gun.SetFieldValue("forceShootDir", Vector3.zero);
 

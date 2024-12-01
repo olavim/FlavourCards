@@ -2,6 +2,7 @@ using CinnamonFlavour.Extensions;
 using HarmonyLib;
 using Photon.Pun;
 using UnityEngine;
+using UnboundLib;
 
 namespace CinnamonFlavour.Patches
 {
@@ -13,6 +14,7 @@ namespace CinnamonFlavour.Patches
             if (__instance.GetAdditionalData().WillBrand)
             {
                 __instance.GetComponent<SpawnedAttack>().SetColor(new Color32(100, 0, 0, 255));
+                __instance.gameObject.GetOrAddComponent<BrandingProjectileHit>();
             }
         }
     }
@@ -32,11 +34,6 @@ namespace CinnamonFlavour.Patches
 
             if (brandHandler)
             {
-                if (__instance.GetAdditionalData().WillBrand && !wasBlocked)
-                {
-                    brandHandler.Brand(__instance.ownPlayer);
-                }
-
                 if (brandHandler.IsBrandedBy(__instance.ownPlayer))
                 {
                     var gun = __instance.ownWeapon.GetComponent<Gun>();

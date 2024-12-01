@@ -10,8 +10,6 @@ namespace CinnamonFlavour
 	{
 		private GameObject _giveEffectTemplate;
 		private List<GameObject> _giveEffects;
-		private readonly float _healAmount = 8;
-		private readonly float _dmg = 5;
 		private CharacterData _data;
 		private float _cooldown = 0;
 		private List<Player> _currentTargets = new();
@@ -37,6 +35,11 @@ namespace CinnamonFlavour
 				return;
 			}
 
+			if (this._data.stats.lifeSteal == 0)
+			{
+				return;
+			}
+
 			this._currentTargets = PlayerManager.instance.players
 				.FindAll(p => !p.data.dead)
 				.FindAll(p => p.teamID != this._data.player.teamID)
@@ -54,12 +57,10 @@ namespace CinnamonFlavour
 			for (var i = 0; i < this._currentTargets.Count; i++)
 			{
 				this._giveEffects[i].transform.position = this._currentTargets[i].transform.position;
-				this._currentTargets[i].data.healthHandler.TakeDamage(this._dmg * Vector2.up, this.transform.position, null, this._data.player, true, false);
 			}
 
 			if (this._currentTargets.Count > 0)
 			{
-				this._data.healthHandler.Heal(this._healAmount * this._currentTargets.Count);
 				SoundManager.Instance.PlayAtPosition(this._soundHeal, SoundManager.Instance.GetTransform(), this.transform);
 
 				foreach (var particleSystem in this.GetComponentsInChildren<ParticleSystem>())
@@ -68,7 +69,7 @@ namespace CinnamonFlavour
 				}
 			}
 
-			this._cooldown = 0.3f;
+			this._cooldown = 0.2f;
 		}
 
 		private void LateUpdate()

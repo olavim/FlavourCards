@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using HarmonyLib;
 using UnityEngine;
@@ -8,7 +9,7 @@ namespace CinnamonFlavour.Extensions
     public class CharacterStatModifiersAdditionalData
     {
         private float _brandDuration = 2f;
-        private float _brandDamage = 0.01f;
+        private float _brandDamageMultiplier = 1f;
 
         public int ShotsAfterReload { get; set; } = 0;
         public int ShotsAfterBlockRefresh { get; set; } = 0;
@@ -17,12 +18,14 @@ namespace CinnamonFlavour.Extensions
             get => Mathf.Max(0.25f, this._brandDuration);
             set => this._brandDuration = value;
         }
-        public float BrandDamage
+        public float BrandDamageMultiplier
         {
-            get => Mathf.Max(0.01f, this._brandDamage);
-            set => this._brandDamage = value;
+            get => Mathf.Max(0.25f, this._brandDamageMultiplier);
+            set => this._brandDamageMultiplier = value;
         }
         public float BrandDurationMultiplier { get; set; } = 1f;
+        public List<BrandObjectsToSpawn> BrandObjectsToSpawn { get; set; } = new();
+        public bool EnableBrandLifeSteal { get; set; } = false;
         public Action<Vector2, bool, Player> DealtDamageToPlayerAction = default;
 
         /// <summary>
@@ -48,9 +51,11 @@ namespace CinnamonFlavour.Extensions
         {
             __instance.GetAdditionalData().ShotsAfterReload = 0;
             __instance.GetAdditionalData().ShotsAfterBlockRefresh = 0;
+            __instance.GetAdditionalData().EnableBrandLifeSteal = false;
             __instance.GetAdditionalData().BrandDuration = 1f;
             __instance.GetAdditionalData().BrandDurationMultiplier = 1f;
-            __instance.GetAdditionalData().BrandDamage = 0.01f;
+            __instance.GetAdditionalData().BrandDamageMultiplier = 1f;
+            __instance.GetAdditionalData().BrandObjectsToSpawn = new();
             __instance.GetAdditionalData().DealtDamageToPlayerAction = default;
             __instance.GetAdditionalData().PlayerBrandedAction = default;
         }

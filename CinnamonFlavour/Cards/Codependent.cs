@@ -1,4 +1,3 @@
-using CinnamonFlavour.Extensions;
 using UnboundLib;
 using UnityEngine;
 

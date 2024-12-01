@@ -1,4 +1,4 @@
-﻿using CinnamonFlavour.Extensions;
+﻿using System.Linq;
 using UnboundLib;
 using UnityEngine;
 
@@ -6,26 +6,25 @@ namespace CinnamonFlavour
 {
 	public class BorrowedTimeAttachment : MonoBehaviour
 	{
-		private float _remainingDuration = 0;
-
 		// 70% more reload speed = 1 / 1.7 reload time multiplier
-		private float _reloadTimeMultiplier = 1f / 1.7f;
-		private float _blockCooldownMultiplier = 0.5f;
+		private readonly float _reloadTimeMultiplier = 1f / 1.7f;
+		private readonly float _blockCooldownMultiplier = 0.5f;
+		private float _updateCooldown = 0;
 		private bool _isActive;
+		private Player _player;
 		private CharacterData _data;
 		private GunAmmo _ammo;
 
 		private void Start()
 		{
+			this._player = this.GetComponentInParent<Player>();
 			this._data = this.GetComponentInParent<CharacterData>();
-			this._data.stats.GetAdditionalData().PlayerBrandedAction += this.PlayerBranded;
 			this._data.healthHandler.reviveAction += this.Stop;
 			this._ammo = this._data.weaponHandler.gun.GetComponentInChildren<GunAmmo>();
 		}
 
 		private void OnDestroy()
 		{
-			this._data.stats.GetAdditionalData().PlayerBrandedAction -= this.PlayerBranded;
 			this._data.healthHandler.reviveAction -= this.Stop;
 		}
 
@@ -36,46 +35,63 @@ namespace CinnamonFlavour
 
 		private void Update()
 		{
-			if (this._remainingDuration > 0)
+			this._updateCooldown -= Time.deltaTime;
+
+			if (this._updateCooldown > 0)
 			{
-				this._remainingDuration -= Time.deltaTime;
+				return;
 			}
 
-			if (this._isActive && this._remainingDuration <= 0)
+			bool hasBrandedOpponent = PlayerManager.instance.players
+				.Where(p => !p.data.dead)
+				.Where(p => p.teamID != this._player.teamID)
+				.Any(p => p.GetComponent<BrandHandler>().IsBrandedBy(this._player));
+
+			if (!this._isActive && hasBrandedOpponent)
+			{
+				this.Activate();
+			}
+
+			if (this._isActive && !hasBrandedOpponent)
 			{
 				this.Stop();
 			}
+
+			this._updateCooldown = 0.1f;
 		}
 
 		private void Activate()
 		{
-			if (!this._isActive)
+			if (this._isActive)
 			{
-				this._ammo.reloadTimeMultiplier *= this._reloadTimeMultiplier;
-				float counter = (float) this._ammo.GetFieldValue("reloadCounter");
-				this._ammo.SetFieldValue("reloadCounter", counter * this._reloadTimeMultiplier);
-
-				this._data.block.cdMultiplier *= this._blockCooldownMultiplier;
-				this._data.block.counter *= this._blockCooldownMultiplier;
+				return;
 			}
 
 			this._isActive = true;
-			this._remainingDuration = 3f;
+
+			this._ammo.reloadTimeMultiplier *= this._reloadTimeMultiplier;
+			float counter = (float) this._ammo.GetFieldValue("reloadCounter");
+			this._ammo.SetFieldValue("reloadCounter", counter * this._reloadTimeMultiplier);
+
+			this._data.block.cdMultiplier *= this._blockCooldownMultiplier;
+			this._data.block.counter *= this._blockCooldownMultiplier;
 		}
 
 		private void Stop()
 		{
-			if (this._isActive)
+			if (!this._isActive)
 			{
-				this._isActive = false;
-
-				this._ammo.reloadTimeMultiplier /= this._reloadTimeMultiplier;
-				float counter = (float) this._ammo.GetFieldValue("reloadCounter");
-				this._ammo.SetFieldValue("reloadCounter", counter / this._reloadTimeMultiplier);
-
-				this._data.block.cdMultiplier /= this._blockCooldownMultiplier;
-				this._data.block.counter /= this._blockCooldownMultiplier;
+				return;
 			}
+
+			this._isActive = false;
+
+			this._ammo.reloadTimeMultiplier /= this._reloadTimeMultiplier;
+			float counter = (float) this._ammo.GetFieldValue("reloadCounter");
+			this._ammo.SetFieldValue("reloadCounter", counter / this._reloadTimeMultiplier);
+
+			this._data.block.cdMultiplier /= this._blockCooldownMultiplier;
+			this._data.block.counter /= this._blockCooldownMultiplier;
 		}
 	}
 }

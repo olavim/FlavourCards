@@ -1,4 +1,5 @@
 ﻿using CinnamonFlavour.Extensions;
+using System.Linq;
 using UnboundLib;
 using UnityEngine;
 using UnityEngine.Events;
@@ -7,11 +8,12 @@ namespace CinnamonFlavour
 {
 	public class PressureAttachment : MonoBehaviour
 	{
-		private float _remainingDuration = 0;
-		private float _hpMultiplier = 3f;
-		private float _speedMultiplier = 1.5f;
-		private float _jumpMultiplier = 1.25f;
+		private readonly float _hpMultiplier = 3f;
+		private readonly float _speedMultiplier = 1.5f;
+		private readonly float _jumpMultiplier = 1.25f;
+		private float _updateCooldown = 0;
 		private bool _isActive;
+		private Player _player;
 		private CharacterData _data;
 
 		[SerializeField] private UnityEvent _startEvent = default;
@@ -19,61 +21,69 @@ namespace CinnamonFlavour
 
 		private void Start()
 		{
+			this._player = this.GetComponentInParent<Player>();
 			this._data = this.GetComponentInParent<CharacterData>();
-			this._data.stats.GetAdditionalData().PlayerBrandedAction += this.PlayerBranded;
-		}
-
-		private void OnDestroy()
-		{
-			this._data.stats.GetAdditionalData().PlayerBrandedAction -= this.PlayerBranded;
-		}
-
-		private void PlayerBranded(Player player)
-		{
-			this.Activate();
 		}
 
 		private void Update()
 		{
-			if (this._remainingDuration > 0)
+			this._updateCooldown -= Time.deltaTime;
+
+			if (this._updateCooldown > 0)
 			{
-				this._remainingDuration -= Time.deltaTime;
+				return;
 			}
 
-			if (this._isActive && this._remainingDuration <= 0)
+			bool hasBrandedOpponent = PlayerManager.instance.players
+				.Where(p => !p.data.dead)
+				.Where(p => p.teamID != this._player.teamID)
+				.Any(p => p.GetComponent<BrandHandler>().IsBrandedBy(this._player));
+
+			if (!this._isActive && hasBrandedOpponent)
+			{
+				this.Activate();
+			}
+
+			if (this._isActive && !hasBrandedOpponent)
 			{
 				this.Stop();
 			}
+
+			this._updateCooldown = 0.1f;
 		}
 
 		private void Activate()
 		{
-			if (!this._isActive)
+			if (this._isActive)
 			{
-				this._data.stats.movementSpeed *= this._speedMultiplier;
-				this._data.stats.jump *= this._jumpMultiplier;
-				this._data.health *= this._hpMultiplier;
-				this._data.maxHealth *= this._hpMultiplier;
-				this._data.stats.InvokeMethod("ConfigureMassAndSize");
-				this._startEvent.Invoke();
+				return;
 			}
 
 			this._isActive = true;
-			this._remainingDuration = 3f;
+
+			this._data.stats.movementSpeed *= this._speedMultiplier;
+			this._data.stats.jump *= this._jumpMultiplier;
+			this._data.health *= this._hpMultiplier;
+			this._data.maxHealth *= this._hpMultiplier;
+			this._data.stats.InvokeMethod("ConfigureMassAndSize");
+			this._startEvent.Invoke();
 		}
 
 		public void Stop()
 		{
-			if (this._isActive)
+			if (!this._isActive)
 			{
-				this._isActive = false;
-				this._data.stats.movementSpeed /= this._speedMultiplier;
-				this._data.stats.jump /= this._jumpMultiplier;
-				this._data.health /= this._hpMultiplier;
-				this._data.maxHealth /= this._hpMultiplier;
-				this._data.stats.InvokeMethod("ConfigureMassAndSize");
-				this._endEvent.Invoke();
+				return;
 			}
+
+			this._isActive = false;
+
+			this._data.stats.movementSpeed /= this._speedMultiplier;
+			this._data.stats.jump /= this._jumpMultiplier;
+			this._data.health /= this._hpMultiplier;
+			this._data.maxHealth /= this._hpMultiplier;
+			this._data.stats.InvokeMethod("ConfigureMassAndSize");
+			this._endEvent.Invoke();
 		}
 	}
 }

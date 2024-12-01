@@ -6,6 +6,8 @@ namespace CinnamonFlavour
 {
 	public class Brand : MonoBehaviour
 	{
+		private static readonly float BaseDamagePercentage = 0.015f;
+
 		private float _radius;
 		private Color _color;
 		private List<GameObject> _lineTargets;
@@ -67,8 +69,14 @@ namespace CinnamonFlavour
 
 			if (this._damageCooldown <= 0)
 			{
-				float damage = this._player.data.maxHealth * this.Brander.data.stats.GetAdditionalData().BrandDamage;
+				float damage = this._player.data.maxHealth * this.Brander.data.stats.GetAdditionalData().BrandDamageMultiplier * Brand.BaseDamagePercentage;
 				this._player.data.healthHandler.TakeDamage(Vector2.up * damage, this.transform.position);
+
+				if (this.Brander.data.stats.GetAdditionalData().EnableBrandLifeSteal)
+				{
+					this.Brander.data.healthHandler.Heal(damage * this.Brander.data.stats.lifeSteal);
+				}
+
 				this._damageCooldown = 0.2f;
 			}
 		}

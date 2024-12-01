@@ -14,7 +14,7 @@ namespace CinnamonFlavour
 		{
 			gun.GetAdditionalData().DamageToBranded *= 2f;
 			gun.GetAdditionalData().BrandChance += 0.2f;
-			characterStats.GetAdditionalData().BrandDamage *= 1.5f;
+			characterStats.GetAdditionalData().BrandDamageMultiplier *= 1.5f;
 		}
 
 		protected override GameObject GetCardArt()

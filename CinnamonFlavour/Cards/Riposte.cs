@@ -31,7 +31,7 @@ namespace CinnamonFlavour
 
 		protected override string GetDescription()
 		{
-			return "<nobr>Brand nearby enemies when you block.</nobr>\n<nobr>Shoot at a branded opponent on block refresh.</nobr>";
+			return "Brand nearby enemies when you block. Shoot at a branded opponent on block refresh.";
 		}
 
 		protected override CardInfo.Rarity GetRarity()

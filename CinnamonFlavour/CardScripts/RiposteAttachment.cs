@@ -56,8 +56,11 @@ namespace CinnamonFlavour
 				}
 
 				var target = visibleBrandedOpponents[UnityEngine.Random.Range(0, visibleBrandedOpponents.Count)];
+				var targetPos = target.transform.position;
+				var myPos = this.transform.position;
 
-				this._wh.gun.SetFieldValue("forceShootDir", target.transform.position - this._player.transform.position);
+				var compensation = (float) this._wh.gun.InvokeMethod("GetRangeCompensation", Vector3.Distance(targetPos, myPos)) * Vector3.up;
+				this._wh.gun.SetFieldValue("forceShootDir", compensation + targetPos - myPos);
 				bool didShoot = this._wh.gun.Attack(0f, true, 1f, 1f, true);
 				this._wh.gun.SetFieldValue("forceShootDir", Vector3.zero);
 

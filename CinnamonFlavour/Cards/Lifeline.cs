@@ -1,3 +1,4 @@
+using CinnamonFlavour.Extensions;
 using UnityEngine;
 
 namespace CinnamonFlavour
@@ -9,10 +10,12 @@ namespace CinnamonFlavour
 		public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
 		{
 			statModifiers.AddObjectToPlayer = (GameObject) CinnamonFlavour.CustomResources["A_Lifeline"];
+			statModifiers.lifeSteal = 0.3f;
 		}
 
 		public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
 		{
+			characterStats.GetAdditionalData().EnableBrandLifeSteal = true;
 		}
 
 		protected override GameObject GetCardArt()
@@ -37,7 +40,9 @@ namespace CinnamonFlavour
 
 		protected override CardInfoStat[] GetStats()
 		{
-			return new CardInfoStat[] {};
+			return new CardInfoStat[] {
+				Utils.CreateCardInfoStat("+30%", "Life steal", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.aLittleBitOf),
+			};
 		}
 
 		protected override CardThemeColor.CardThemeColorType GetTheme()

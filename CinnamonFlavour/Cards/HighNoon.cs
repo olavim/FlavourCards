@@ -1,5 +1,4 @@
 using CinnamonFlavour.Extensions;
-using UnboundLib;
 using UnityEngine;
 
 namespace CinnamonFlavour
@@ -31,7 +30,7 @@ namespace CinnamonFlavour
 
 		protected override string GetDescription()
 		{
-			return "<nobr>Brand a visible opponent on reload start.</nobr>\n<nobr>Shoot at a branded opponent after reloading.</nobr>\n<nobr>Disables continuous reloading.</nobr></size>";
+			return "Brand visible opponents on reload start. Shoot at a branded opponent after reloading.\n<nobr>Disables continuous reloading.</nobr></size>";
 		}
 
 		protected override CardInfo.Rarity GetRarity()
