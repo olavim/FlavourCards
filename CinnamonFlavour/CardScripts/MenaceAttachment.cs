@@ -1,4 +1,3 @@
-using CinnamonFlavour.Extensions;
 using Sonigon;
 using SoundImplementation;
 using System.Collections.Generic;
@@ -9,9 +8,10 @@ namespace CinnamonFlavour
 {
 	public class MenaceAttachment : MonoBehaviour
 	{
+		private readonly float _range = 6f;
+
 		[SerializeField] private SoundEvent _soundActivate = default;
 		private float _cooldown = 0;
-		private float _effectCooldown = 0;
 		private LineEffect _circleLineEffect;
 		private PlayLineAnimation _circlePlayLineAnimation;
 		private GameObject _lineEffectTemplate;
@@ -27,7 +27,6 @@ namespace CinnamonFlavour
 
 		public void Update()
 		{
-			this._effectCooldown -= Time.deltaTime;
 			this._cooldown -= Time.deltaTime;
 
 			if (this._cooldown > 0)
@@ -42,7 +41,7 @@ namespace CinnamonFlavour
 
 			this._lineEffects.Clear();
 
-			float range = 4.5f * this.transform.localScale.x;
+			float range = this._range * this.transform.localScale.x;
 			this._circleLineEffect.radius = range * 0.75f;
 			var brander = this.transform.GetComponentInParent<Player>();
 
@@ -50,23 +49,16 @@ namespace CinnamonFlavour
 				.Where(p => p.teamID != brander.teamID)
 				.Where(p => !p.data.dead)
 				.Where(p => Vector2.Distance(brander.transform.position, p.transform.position) <= range)
+				.Where(p => !p.GetComponent<BrandHandler>().IsBrandedBy(brander))
 				.Where(p => PlayerManager.instance.CanSeePlayer(brander.transform.position, p).canSee);
 
 			foreach (var player in nearbyVisibleOpponents)
 			{
 				player.transform.GetComponent<BrandHandler>().Brand(brander);
-			}
-
-			if (this._effectCooldown <= 0)
-			{
-				foreach (var player in nearbyVisibleOpponents)
-				{
-					var lineEffect = GameObject.Instantiate(this._lineEffectTemplate, this.transform);
-					lineEffect.GetComponent<LineEffect>().Play(this.transform, player.transform);
-					this._lineEffects.Add(lineEffect);
-				}
-
-				this._effectCooldown = 0.6f;
+				this._lineEffectTemplate.SetActive(false);
+				var lineEffect = GameObject.Instantiate(this._lineEffectTemplate, this.transform);
+				lineEffect.GetComponent<LineEffect>().Play(this.transform, player.transform);
+				this._lineEffects.Add(lineEffect);
 			}
 
 			if (this._lineEffects.Count > 0)

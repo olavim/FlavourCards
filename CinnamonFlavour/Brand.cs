@@ -6,7 +6,8 @@ namespace CinnamonFlavour
 {
 	public class Brand : MonoBehaviour
 	{
-		private static readonly float BaseDamagePercentage = 0.015f;
+		private static readonly float s_baseDamagePercentage = 0.015f;
+		private static readonly float s_damageRate = 0.2f;
 
 		private float _radius;
 		private Color _color;
@@ -45,9 +46,10 @@ namespace CinnamonFlavour
 			{
 				var go = new GameObject("LineTarget");
 				go.transform.SetParent(this.transform);
+				this.SetRandomPositionOnRadius(go);
+				this._sparkCooldowns.Add(GetRandomSparkDuration());
 				this._lineTargets.Add(go);
 				le.Play(this.transform, go.transform, 0f);
-				this._sparkCooldowns.Add(0);
 			}
 		}
 
@@ -59,9 +61,8 @@ namespace CinnamonFlavour
 
 				if (this._sparkCooldowns[i] <= 0)
 				{
-					int degrees = UnityEngine.Random.Range(0, 360);
-					this._lineTargets[i].transform.localPosition = Quaternion.Euler(0, 0, degrees) * (Vector2.up * this._radius * 1.2f);
-					this._sparkCooldowns[i] = UnityEngine.Random.Range(0.1f, 0.5f);
+					this.SetRandomPositionOnRadius(this._lineTargets[i]);
+					this._sparkCooldowns[i] = GetRandomSparkDuration();
 				}
 			}
 
@@ -69,7 +70,7 @@ namespace CinnamonFlavour
 
 			if (this._damageCooldown <= 0)
 			{
-				float damage = this._player.data.maxHealth * this.Brander.data.stats.GetAdditionalData().BrandDamageMultiplier * Brand.BaseDamagePercentage;
+				float damage = this._player.data.maxHealth * this.Brander.data.stats.GetAdditionalData().BrandDamageMultiplier * Brand.s_baseDamagePercentage;
 				this._player.data.healthHandler.TakeDamage(Vector2.up * damage, this.transform.position);
 
 				if (this.Brander.data.stats.GetAdditionalData().EnableBrandLifeSteal)
@@ -77,8 +78,19 @@ namespace CinnamonFlavour
 					this.Brander.data.healthHandler.Heal(damage * this.Brander.data.stats.lifeSteal);
 				}
 
-				this._damageCooldown = 0.2f;
+				this._damageCooldown = s_damageRate;
 			}
+		}
+
+		private void SetRandomPositionOnRadius(GameObject target)
+		{
+			int degrees = UnityEngine.Random.Range(0, 360);
+			target.transform.localPosition = Quaternion.Euler(0, 0, degrees) * (Vector2.up * this._radius * 1.2f);
+		}
+
+		private static float GetRandomSparkDuration()
+		{
+			return UnityEngine.Random.Range(0.1f, 0.5f);
 		}
 	}
 }

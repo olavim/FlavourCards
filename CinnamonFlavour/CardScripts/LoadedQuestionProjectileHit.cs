@@ -43,7 +43,7 @@ namespace CinnamonFlavour
 
 				var lineEffect = Instantiate(this._lineEffectPrefab, point, Quaternion.identity).GetComponent<LineEffect>();
 				lineEffect.Play(target.transform, this.transform.position, 0f);
-				brander.ExecuteAfterSeconds(0.2f, () => GameObject.Destroy(lineEffect.gameObject));
+				Unbound.Instance.ExecuteAfterSeconds(0.2f, () => GameObject.Destroy(lineEffect.gameObject));
 			}
 
 			this._done = true;

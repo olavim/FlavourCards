@@ -8,7 +8,6 @@ namespace CinnamonFlavour
 		public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
 		{
 			statModifiers.AddObjectToPlayer = (GameObject) CinnamonFlavour.CustomResources["A_Menace"];
-			statModifiers.health = 0.75f;
 		}
 
 		public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
@@ -38,7 +37,6 @@ namespace CinnamonFlavour
 		protected override CardInfoStat[] GetStats()
 		{
 			return new CardInfoStat[] {
-				Utils.CreateCardInfoStat("-25%", "HP", CardInfoStatType.Negative, CardInfoStat.SimpleAmount.slightlyLower)
 			};
 		}
 

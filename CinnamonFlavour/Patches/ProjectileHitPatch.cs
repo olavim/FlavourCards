@@ -1,8 +1,9 @@
 using CinnamonFlavour.Extensions;
 using HarmonyLib;
 using Photon.Pun;
-using UnityEngine;
+using System.Linq;
 using UnboundLib;
+using UnityEngine;
 
 namespace CinnamonFlavour.Patches
 {
@@ -15,6 +16,19 @@ namespace CinnamonFlavour.Patches
             {
                 __instance.GetComponent<SpawnedAttack>().SetColor(new Color32(100, 0, 0, 255));
                 __instance.gameObject.GetOrAddComponent<BrandingProjectileHit>();
+
+                var objectsToSpawn = __instance.objectsToSpawn.ToList();
+                objectsToSpawn.Add(
+                    new()
+                    {
+                        effect = (GameObject) CinnamonFlavour.CustomResources["A_BrandingProjectile"],
+                        direction = ObjectsToSpawn.Direction.identity,
+                        normalOffset = 0.05f,
+                        stickToAllTargets = true,
+                        scaleStacks = false
+                    }
+                );
+                __instance.objectsToSpawn = objectsToSpawn.ToArray();
             }
         }
     }
