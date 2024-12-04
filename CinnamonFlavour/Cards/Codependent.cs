@@ -16,6 +16,15 @@ namespace CinnamonFlavour
 			player.gameObject.GetOrAddComponent<CodependentAttachment>();
 		}
 
+		public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
+		{
+			var comp = player.gameObject.GetComponent<CodependentAttachment>();
+			if (comp != null)
+			{
+				GameObject.Destroy(comp);
+			}
+		}
+
 		protected override GameObject GetCardArt()
 		{
 			return new GameObject();

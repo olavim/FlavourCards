@@ -4,7 +4,7 @@ using UnityEngine;
 namespace CinnamonFlavour
 {
 	[Card]
-	public sealed class BorrowedTime : CinnamonFlavourCard
+	public sealed class EarTags : CinnamonFlavourCard
 	{
 		public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
 		{
@@ -12,18 +12,9 @@ namespace CinnamonFlavour
 
 		public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
 		{
-			var go = new GameObject("A_BorrowedTime", typeof(BorrowedTimeAttachment));
-			go.transform.SetParent(player.transform);
-			characterStats.GetAdditionalData().BrandDuration -= 0.25f;
-		}
-
-		public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
-		{
-			var go = player.transform.Find("A_BorrowedTime").gameObject;
-			if (go != null)
-			{
-				GameObject.Destroy(go);
-			}
+			characterStats.GetAdditionalData().BrandDuration += 10f;
+			characterStats.GetAdditionalData().BrandDamageMultiplier = 0;
+			gun.GetAdditionalData().BrandChance += 0.2f;
 		}
 
 		protected override GameObject GetCardArt()
@@ -33,12 +24,12 @@ namespace CinnamonFlavour
 
 		protected override string GetTitle()
 		{
-			return "Borrowed Time";
+			return "Ear Tags";
 		}
 
 		protected override string GetDescription()
 		{
-			return "+70% reload speed and -50% block cooldown while an opponent has your brand";
+			return "Your brands deal no damage";
 		}
 
 		protected override CardInfo.Rarity GetRarity()
@@ -49,7 +40,8 @@ namespace CinnamonFlavour
 		protected override CardInfoStat[] GetStats()
 		{
 			return new CardInfoStat[] {
-				Utils.CreateCardInfoStat("-0.25s", "Brand duration", CardInfoStatType.Negative, CardInfoStat.SimpleAmount.slightlyLower)
+				Utils.CreateCardInfoStat("+10s", "Brand duration", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.aHugeAmountOf),
+				Utils.CreateCardInfoStat("+20%", "Brand chance", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.Some),
 			};
 		}
 

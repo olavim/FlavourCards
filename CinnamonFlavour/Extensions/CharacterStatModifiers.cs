@@ -20,7 +20,7 @@ namespace CinnamonFlavour.Extensions
         }
         public float BrandDamageMultiplier
         {
-            get => Mathf.Max(0.25f, this._brandDamageMultiplier);
+            get => Mathf.Max(0, this._brandDamageMultiplier);
             set => this._brandDamageMultiplier = value;
         }
         public float BrandDurationMultiplier { get; set; } = 1f;

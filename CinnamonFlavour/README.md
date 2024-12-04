@@ -8,13 +8,14 @@ Balanced around vanilla cards and meant to be played together with them.
 
 | Name | Description | Rarity |
 |------|-------------|--------|
-| Enmity             | More damage against branded opponents. | Common
+| Enmity             | More brand chance, brand damage and attack speed. | Common
 | Hot Iron           | More brand chance, brand duration and brand damage. | Common
-| Impression         | Much more brand chance and attack speed. | Common
 | Modern Tools       | More brand chance, brand duration and reload speed. | Common
 | OSHA               | More brand chance, brand duration and faster block cooldown. | Common
+| Air Burst          | Your bullets explode near branded opponents. | Uncommon
 | Borrowed Time      | Faster reload and block cooldown while an opponent has your brand. | Uncommon
 | Codependent        | Don't consume ammo while an opponent has your brand. | Uncommon
+| Ear Tags           | Much more brand duration, but no brand damage. | Uncommon
 | High Noon          | Brand a random visible opponent when you start reloading. Automatically shoot at a branded opponent after reloading. | Uncommon
 | Loaded Question    | Your last shot brands visible opponents. | Uncommon
 | Pressure           | More movement speed and hp while an opponent has your brand. | Uncommon

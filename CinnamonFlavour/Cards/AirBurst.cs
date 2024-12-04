@@ -4,16 +4,25 @@ using UnityEngine;
 namespace CinnamonFlavour
 {
 	[Card]
-	public sealed class Impression : CinnamonFlavourCard
+	public sealed class AirBurst : CinnamonFlavourCard
 	{
 		public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
 		{
-			gun.attackSpeed = 0.666666f;
+			gun.objectsToSpawn = new ObjectsToSpawn[]
+			{
+				new()
+				{
+					AddToProjectile = (GameObject) CinnamonFlavour.CustomResources["A_AirBurst"],
+					direction = ObjectsToSpawn.Direction.identity,
+					scaleStacks = false
+				}
+			};
+			gun.attackSpeed = 1.5f;
 		}
 
 		public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
 		{
-			gun.GetAdditionalData().BrandChance += 0.25f;
+			gun.GetAdditionalData().BrandChance += 0.2f;
 		}
 
 		protected override GameObject GetCardArt()
@@ -23,24 +32,24 @@ namespace CinnamonFlavour
 
 		protected override string GetTitle()
 		{
-			return "Impression";
+			return "Air Burst";
 		}
 
 		protected override string GetDescription()
 		{
-			return "";
+			return "Your bullets explode near branded opponents";
 		}
 
 		protected override CardInfo.Rarity GetRarity()
 		{
-			return CardInfo.Rarity.Common;
+			return CardInfo.Rarity.Uncommon;
 		}
 
 		protected override CardInfoStat[] GetStats()
 		{
 			return new CardInfoStat[] {
-				Utils.CreateCardInfoStat("+25%", "Chance to brand", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.aLotOf),
-				Utils.CreateCardInfoStat("+50%", "ATKSPD", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.Some)
+				Utils.CreateCardInfoStat("+20%", "Brand chance", CardInfoStatType.Positive, CardInfoStat.SimpleAmount.Some),
+				Utils.CreateCardInfoStat("-33%", "ATKSPD", CardInfoStatType.Negative, CardInfoStat.SimpleAmount.lower)
 			};
 		}
 

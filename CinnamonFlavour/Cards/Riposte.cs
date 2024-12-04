@@ -10,13 +10,17 @@ namespace CinnamonFlavour
 		public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
 		{
 			statModifiers.AddObjectToPlayer = (GameObject) CinnamonFlavour.CustomResources["A_Riposte"];
-			block.cdAdd = 0.25f;
 		}
 
 		public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
 		{
 			player.gameObject.GetOrAddComponent<RiposteAttachment>();
 			characterStats.GetAdditionalData().ShotsAfterBlockRefresh += 1;
+		}
+
+		public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
+		{
+			GameObject.Destroy(player.gameObject.GetComponent<RiposteAttachment>());
 		}
 
 		protected override GameObject GetCardArt()
@@ -41,9 +45,7 @@ namespace CinnamonFlavour
 
 		protected override CardInfoStat[] GetStats()
 		{
-			return new CardInfoStat[] {
-				Utils.CreateCardInfoStat("+0.25s", "Block cooldown", CardInfoStatType.Negative, CardInfoStat.SimpleAmount.notAssigned)
-			};
+			return new CardInfoStat[] { };
 		}
 
 		protected override CardThemeColor.CardThemeColorType GetTheme()
