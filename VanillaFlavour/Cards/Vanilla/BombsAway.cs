@@ -18,6 +18,15 @@ namespace VanillaFlavour
 			go.transform.localPosition = Vector3.zero;
 		}
 
+		public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
+		{
+			var go = player.transform.Find("A_CustomBombsAway").gameObject;
+			if (go != null)
+			{
+				GameObject.Destroy(go);
+			}
+		}
+
 		protected override GameObject GetCardArt()
 		{
 			return (GameObject) VanillaFlavour.RoundsResources["C_BombsAway"];

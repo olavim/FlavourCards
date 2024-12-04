@@ -25,7 +25,7 @@ namespace VanillaFlavour
 			using var stream = asm.GetManifestResourceStream($"VanillaFlavour.Assets.{name}");
 			return AssetBundle.LoadFromStream(stream);
 		}
-		
+
 		private void Awake()
 		{
 			new Harmony(ModId).PatchAll();
@@ -48,7 +48,7 @@ namespace VanillaFlavour
 
 			foreach (var res in Resources.FindObjectsOfTypeAll<GameObject>())
 			{
-				if (res.name.StartsWith("A_") || res.name.StartsWith("C_") || res.name.StartsWith("E_"))
+				if ((res.name.StartsWith("A_") || res.name.StartsWith("C_") || res.name.StartsWith("E_")) && res.transform.parent == null)
 				{
 					RoundsResources.TryAdd(res.name, res);
 				}
